@@ -1,0 +1,1419 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#161C21" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:title" content="Аккумуляторы Казани">
+<meta property="og:description" content="Аккумуляторы для легковых, грузовых, мото, лодок и ИБП в Усадах, Лаишевский район. Подбор по машине, выезд и прикурка, приём старых аккумуляторов со скидкой на новый.">
+<meta name="format-detection" content="telephone=no">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20x%3D%223%22%20y%3D%229%22%20width%3D%2226%22%20height%3D%2218%22%20rx%3D%223%22%20fill%3D%22%23FFFFFF%22%20stroke%3D%22%23141A1F%22%20stroke-width%3D%223%22/%3E%3Crect%20x%3D%227%22%20y%3D%224%22%20width%3D%226%22%20height%3D%224%22%20rx%3D%221%22%20fill%3D%22%23141A1F%22/%3E%3Crect%20x%3D%2219%22%20y%3D%224%22%20width%3D%226%22%20height%3D%224%22%20rx%3D%221%22%20fill%3D%22%23C42219%22/%3E%3C/svg%3E">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}img{max-width:100%}</style>
+<title>Аккумуляторы Казани</title>
+<meta name="description" content="Аккумуляторы для легковых, грузовых, мото, лодок и ИБП. Усады, Лаишевский район. Подбор по марке машины, установка, выезд и прикурка автомобиля, приём старых аккумуляторов со скидкой на новый.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:wght@600;800&family=Golos+Text:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: витрина-прилавок — разделы выровнены по левому краю на холодном «цеховом» сером, форма подбора нарисована как наклейка на корпусе аккумулятора */
+:root{
+  --paper:#EEF1F2;
+  --surface:#FFFFFF;
+  --ink:#141A1F;
+  --ink-2:#55606A;
+  --line:#D3D9DD;
+  --line-2:#B3BCC3;
+  --plus:#C42219;
+  --plus-2:#A21A12;
+  --on-plus:#FFFFFF;
+  --minus:#27313B;
+  --ok:#1D7E45;
+  --warn:#975A05;
+  --wa:#1B9A4E;
+  --tg:#1C80CC;
+  --mx:#5A4ED8;
+  --shade:rgba(20,26,31,.30);
+  --scrim:rgba(12,16,19,.45);
+  --f-display:"Fira Sans Extra Condensed","Arial Narrow","Roboto Condensed",sans-serif;
+  --f-body:"Golos Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+  --wrap:1200px;
+  --r:5px;
+  --head-h:64px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0E1215;--surface:#161C21;--ink:#E5E9EC;--ink-2:#99A4AE;--line:#262F37;--line-2:#3B4651;
+    --plus:#D3342A;--plus-2:#E4483E;--on-plus:#FFFFFF;--minus:#C3CCD4;--ok:#3BBE75;--warn:#E0A23C;
+    --wa:#22A85A;--tg:#2A8BD6;--mx:#6A5FEC;--shade:rgba(0,0,0,.6);--scrim:rgba(0,0,0,.6);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0E1215;--surface:#161C21;--ink:#E5E9EC;--ink-2:#99A4AE;--line:#262F37;--line-2:#3B4651;
+  --plus:#D3342A;--plus-2:#E4483E;--on-plus:#FFFFFF;--minus:#C3CCD4;--ok:#3BBE75;--warn:#E0A23C;
+  --wa:#22A85A;--tg:#2A8BD6;--mx:#6A5FEC;--shade:rgba(0,0,0,.6);--scrim:rgba(0,0,0,.6);
+  color-scheme:dark;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion: no-preference){html{scroll-behavior:smooth}}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.55 var(--f-body);-webkit-font-smoothing:antialiased}
+[hidden]{display:none!important}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:45;background:var(--surface)}
+a{color:inherit}
+h1,h2,h3{margin:0;text-wrap:balance}
+p{margin:0}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--plus);outline-offset:2px}
+[id]{scroll-margin-top:calc(var(--head-h) + 16px)}
+.sprite{position:absolute;width:0;height:0;overflow:hidden}
+.wrap{max-width:var(--wrap);margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+@media (min-width:760px){.wrap{padding-left:max(32px,env(safe-area-inset-left,0px));padding-right:max(32px,env(safe-area-inset-right,0px))}}
+.mono{font-family:var(--f-mono);font-weight:500;font-variant-numeric:tabular-nums}
+.muted{color:var(--ink-2)}
+svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+
+/* buttons */
+.btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:46px;padding:0 18px;border-radius:var(--r);border:1.5px solid transparent;background:none;font:600 15px/1.1 var(--f-body);text-decoration:none;cursor:pointer;white-space:nowrap;transition:background-color .15s,border-color .15s,color .15s}
+.btn svg.i{width:18px;height:18px}
+.btn-plus{background:var(--plus);color:var(--on-plus)}
+.btn-plus:hover{background:var(--plus-2)}
+.btn-line{background:var(--surface);border-color:var(--line-2);color:var(--ink)}
+.btn-line:hover{border-color:var(--ink)}
+.btn-sm{min-height:38px;padding:0 12px;font-size:14px;gap:7px}
+.btn-block{width:100%}
+.mk{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;font:700 10.5px/1 var(--f-body);color:var(--on-plus);flex:none}
+.mk-wa{background:var(--wa)}.mk-tg{background:var(--tg)}.mk-mx{background:var(--mx)}
+.icon-btn{display:inline-grid;place-items:center;width:42px;height:42px;border-radius:var(--r);border:1.5px solid transparent;background:none;color:inherit;cursor:pointer;flex:none}
+.icon-btn:hover{border-color:var(--line-2)}
+.linkbtn{background:none;border:0;padding:0;color:var(--ink);font-size:14px;text-decoration:underline;text-decoration-color:var(--line-2);text-underline-offset:3px;cursor:pointer}
+.linkbtn:hover{text-decoration-color:var(--ink)}
+.udot{position:absolute;top:-4px;right:-4px;width:13px;height:13px;border-radius:50%;background:var(--plus);border:2px solid var(--surface)}
+.badge{display:inline-block;min-width:20px;height:20px;padding:0 6px;border-radius:10px;background:var(--plus);color:var(--on-plus);font:600 12px/20px var(--f-body);text-align:center}
+
+/* header */
+.head{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:var(--surface);border-bottom:1px solid var(--line)}
+.head-bar{display:flex;align-items:center;gap:22px;min-height:var(--head-h)}
+.logo{display:inline-flex;align-items:center;gap:11px;text-decoration:none;margin-right:auto;min-width:0}
+.glyph{position:relative;flex:none;width:28px;height:19px;border:2.5px solid var(--ink);border-radius:3px;margin-top:5px}
+.glyph::before,.glyph::after{content:"";position:absolute;top:-7px;width:7px;height:4px;border-radius:1px}
+.glyph::before{left:3px;background:var(--ink)}
+.glyph::after{right:3px;background:var(--plus)}
+.logo-text{font:800 23px/1 var(--f-display);letter-spacing:.015em;text-transform:uppercase;white-space:nowrap}
+.logo-text b{font-weight:800;color:var(--plus)}
+.nav{display:flex;gap:18px}
+.nav a{text-decoration:none;font-weight:500;font-size:15px;color:var(--ink-2);padding-block:6px;border-bottom:2px solid transparent}
+.nav a:hover{color:var(--ink);border-bottom-color:var(--plus)}
+.head-tools{display:flex;align-items:center;gap:10px}
+.head-phone{font-size:15px;text-decoration:none;white-space:nowrap}
+.burger{display:none}
+.menu{border-top:1px solid var(--line);background:var(--surface)}
+.menu nav{display:grid}
+.menu nav a{display:block;padding-block:13px;border-bottom:1px solid var(--line);text-decoration:none;font-weight:600;font-size:18px}
+.menu-foot{display:grid;gap:12px;padding-block:16px 20px}
+.menu-phone{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px}
+.menu-phone a{font-size:20px;text-decoration:none}
+@media (max-width:1240px){.nav{display:none}.burger{display:inline-grid}}
+@media (max-width:700px){.head-phone,.head-write{display:none}.inbox-label{display:none}}
+@media (max-width:400px){.logo-text{font-size:19px}.logo{gap:9px}}
+
+/* status dot */
+.state{display:inline-flex;align-items:center;gap:7px}
+.state i{width:8px;height:8px;border-radius:50%;background:var(--line-2);flex:none}
+.state.is-open i{background:var(--ok);box-shadow:0 0 0 3px color-mix(in srgb,var(--ok) 22%,transparent)}
+
+/* hero */
+.hero{padding-block:44px 60px}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,470px);gap:56px;align-items:start}
+@media (max-width:960px){.hero-grid{grid-template-columns:minmax(0,1fr);gap:36px}.hero{padding-block:28px 48px}}
+.eyebrow{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center;font:500 12.5px/1.4 var(--f-mono);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-2)}
+.title{margin-top:18px;font:800 clamp(44px,7.2vw,88px)/.9 var(--f-display);text-transform:uppercase;letter-spacing:-.005em;max-width:12ch}
+.cells{display:flex;flex-wrap:wrap;padding:0 1.5px 1.5px 0}
+.cells>span{border:1.5px solid var(--ink);margin:0 -1.5px -1.5px 0;padding:7px 12px;font:500 14px/1.3 var(--f-mono);font-variant-numeric:tabular-nums;background:var(--surface);overflow-wrap:anywhere}
+.cells>span.ghost{color:var(--ink-2)}
+.hero .cells{margin-top:26px}
+.lead{margin-top:24px;max-width:58ch;font-size:18px;line-height:1.55;color:var(--ink-2)}
+.acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.call-line{margin-top:20px;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px;color:var(--ink-2)}
+.call-line .big{font-size:21px;color:var(--ink);text-decoration:none}
+.notes{margin-top:22px;display:grid;gap:8px;max-width:580px}
+.hero-note{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px;padding:12px 14px;border:1.5px solid var(--line-2);border-radius:var(--r);background:var(--surface);max-width:580px}
+.hero-note b{font-weight:600}
+.tagc{align-self:center;font:500 11.5px/1 var(--f-mono);text-transform:uppercase;letter-spacing:.07em;background:var(--plus);color:var(--on-plus);padding:5px 7px;border-radius:3px}
+.hero-note a{font-weight:600;text-decoration:underline;text-decoration-color:var(--plus);text-underline-offset:3px}
+
+/* выезд */
+.svc{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+@media (max-width:820px){.svc{grid-template-columns:minmax(0,1fr)}}
+.svc article{background:var(--surface);border:1.5px solid var(--line-2);border-radius:var(--r);padding:24px clamp(18px,3vw,28px) 26px;display:grid;gap:14px;align-content:start;min-width:0}
+.svc .k{font:500 12px/1.4 var(--f-mono);text-transform:uppercase;letter-spacing:.07em;color:var(--plus)}
+.svc h3{font:800 clamp(30px,3.6vw,40px)/.95 var(--f-display);text-transform:uppercase}
+.svc p{color:var(--ink-2);max-width:56ch}
+.need{margin:0;padding:12px 0 0;border-top:1.5px dashed var(--line-2);list-style:none;display:grid;gap:4px;font:500 13.5px/1.5 var(--f-mono)}
+.need li::before{content:"+ ";color:var(--plus)}
+.svc .acts{margin-top:4px}
+.svc-foot{margin-top:18px;color:var(--ink-2);font-size:15px;max-width:70ch}
+
+/* podbor label */
+.tool{background:var(--surface);border:2px solid var(--ink);border-radius:4px;min-width:0}
+.tool-top{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 16px;background:var(--ink);color:var(--surface);font:500 12px/1.3 var(--f-mono);letter-spacing:.08em;text-transform:uppercase}
+.tabs{display:grid;grid-template-columns:1fr 1fr;border-bottom:1.5px solid var(--line)}
+.tab{padding:14px 8px 12px;border:0;border-bottom:3px solid transparent;margin-bottom:-1.5px;background:none;font-weight:600;font-size:15px;color:var(--ink-2);cursor:pointer}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--plus)}
+.tool-body{padding:18px 16px 20px;display:grid;gap:18px}
+.panel{display:grid;gap:16px}
+.row2{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:12px}
+.row2.even{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.field{display:grid;gap:6px;min-width:0}
+.field>span,.lbl{font-size:13px;font-weight:600;color:var(--ink-2);padding:0}
+.inp{width:100%;min-height:46px;padding:10px 12px;border:1.5px solid var(--line-2);border-radius:var(--r);background:var(--surface);font-size:16px;line-height:1.3}
+.inp::placeholder{color:var(--ink-2);opacity:.75}
+.inp:focus{border-color:var(--ink);outline:none}
+.inp:focus-visible{outline:2px solid var(--plus);outline-offset:1px}
+fieldset{border:0;margin:0;padding:0;min-width:0}
+.seg{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}
+.seg input,.pol input,.chk input{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+.seg label{display:inline-flex;align-items:center;min-height:38px;padding:0 13px;border:1.5px solid var(--line-2);border-radius:var(--r);font-size:14px;font-weight:500;cursor:pointer;user-select:none;background:var(--surface)}
+.seg label:hover{border-color:var(--ink)}
+.seg input:checked+label{background:var(--ink);border-color:var(--ink);color:var(--surface)}
+.seg input:focus-visible+label,.pol input:focus-visible+label,.chk input:focus-visible+label .box{outline:2px solid var(--plus);outline-offset:2px}
+.pol{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;margin-top:7px}
+.pol label{display:grid;grid-template-columns:auto minmax(0,1fr);gap:2px 10px;align-items:center;padding:10px;border:1.5px solid var(--line-2);border-radius:var(--r);cursor:pointer;background:var(--surface)}
+.pol label:hover{border-color:var(--ink)}
+.pol svg{width:54px;height:34px;grid-row:span 2}
+.pol b{font-size:14.5px;font-weight:600}
+.pol small{font:500 11.5px/1.3 var(--f-mono);color:var(--ink-2)}
+.pol input:checked+label{border-color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}
+.pol .pc{fill:var(--surface);stroke:var(--ink);stroke-width:2}
+.pol .pm{fill:var(--minus)}
+.pol .pp{fill:var(--plus)}
+.pol .ps{font:600 15px var(--f-mono);fill:var(--ink);text-anchor:middle}
+.pol .ps.pps{fill:var(--plus)}
+.hint{font-size:13px;color:var(--ink-2);margin-top:8px}
+@media (max-width:380px){.pol{grid-template-columns:minmax(0,1fr)}}
+.chk{display:flex;flex-wrap:wrap;gap:10px 22px}
+.chk label{display:inline-flex;align-items:center;gap:9px;cursor:pointer;font-size:14.5px;line-height:1.3}
+.box{width:20px;height:20px;border:1.5px solid var(--line-2);border-radius:4px;display:inline-grid;place-items:center;flex:none;background:var(--surface)}
+.box svg.i{width:14px;height:14px;stroke:var(--surface);stroke-width:2.6;opacity:0}
+.chk input:checked+label .box{background:var(--ink);border-color:var(--ink)}
+.chk input:checked+label .box svg.i{opacity:1}
+.req{border-top:1.5px dashed var(--line-2);padding-top:16px;display:grid;gap:10px}
+.req-h{font:500 12px var(--f-mono);text-transform:uppercase;letter-spacing:.07em;color:var(--ink-2)}
+.req .cells>span{font-size:13px;padding:6px 10px}
+.req pre{margin:0;max-height:150px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;font:500 12.5px/1.55 var(--f-mono);background:var(--paper);padding:10px 12px;border-radius:var(--r)}
+.req pre.empty{color:var(--ink-2)}
+.err{color:var(--plus);font-size:14px;font-weight:500}
+.alt{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.alt>span{font-size:13.5px;color:var(--ink-2);margin-right:2px}
+
+/* sections */
+.sec{padding-block:68px;border-top:1px solid var(--line)}
+@media (max-width:700px){.sec{padding-block:48px}}
+.sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px 56px;align-items:end;margin-bottom:30px}
+@media (max-width:820px){.sec-head{grid-template-columns:minmax(0,1fr)}}
+.h2{font:800 clamp(36px,5vw,58px)/.94 var(--f-display);text-transform:uppercase}
+.sec-head p{color:var(--ink-2);max-width:56ch}
+
+.cat{list-style:none;margin:0;padding:0;border-bottom:1px solid var(--line)}
+.cat li{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.9fr) auto;gap:10px 32px;align-items:center;padding-block:20px;border-top:1px solid var(--line)}
+.cat h3{font:800 26px/1.05 var(--f-display);text-transform:uppercase;letter-spacing:.01em}
+.cat p{color:var(--ink-2);font-size:15px;margin-top:6px;max-width:60ch}
+.spec{font:500 14px/1.6 var(--f-mono);font-variant-numeric:tabular-nums}
+.spec span{display:block}
+@media (max-width:760px){.cat li{grid-template-columns:minmax(0,1fr)}.cat .btn{justify-self:start}}
+
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
+.steps li{border-top:3px solid var(--ink);padding-top:16px;display:grid;gap:8px;align-content:start}
+.steps .n{font:800 48px/1 var(--f-display);font-variant-numeric:tabular-nums}
+.steps h3{font:600 19px/1.25 var(--f-body)}
+.steps p{color:var(--ink-2);font-size:15.5px}
+@media (max-width:820px){.steps{grid-template-columns:minmax(0,1fr);gap:22px}}
+
+.faq-grid{display:grid;grid-template-columns:minmax(0,330px) minmax(0,1fr);gap:24px 72px}
+.faq-side{display:grid;gap:20px;align-content:start}
+.faq-side p{color:var(--ink-2)}
+@media (max-width:880px){.faq-grid{grid-template-columns:minmax(0,1fr)}}
+.faq details{border-top:1px solid var(--line)}
+.faq details:last-child{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding-block:18px;cursor:pointer;font-weight:600;font-size:17px;line-height:1.35}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font:600 22px/1 var(--f-mono);color:var(--plus);flex:none;width:22px;text-align:center}
+.faq details[open] summary::after{content:"−";color:var(--ink)}
+.faq .ans{padding-bottom:22px;color:var(--ink-2);max-width:66ch;display:grid;gap:12px}
+.faq .ans .alt{margin-top:2px}
+
+.contacts{background:var(--surface)}
+.c-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:36px 72px}
+@media (max-width:880px){.c-grid{grid-template-columns:minmax(0,1fr)}}
+.addr{margin-top:28px;font:800 clamp(30px,4.4vw,48px)/1 var(--f-display);text-transform:uppercase}
+.addr-sub{margin-top:10px;color:var(--ink-2)}
+.dl{margin:0;align-self:end}
+.dl>div{display:grid;grid-template-columns:150px minmax(0,1fr);gap:6px 20px;padding-block:15px;border-top:1px solid var(--line)}
+.dl>div:last-child{border-bottom:1px solid var(--line)}
+.dl dt{font:500 12.5px/1.9 var(--f-mono);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-2)}
+.dl dd{margin:0;display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;min-width:0}
+.dl .big{font-size:20px;text-decoration:none}
+@media (max-width:560px){.dl>div{grid-template-columns:minmax(0,1fr)}}
+
+.foot{padding-block:28px 34px;font-size:13.5px;color:var(--ink-2);border-top:1px solid var(--line)}
+.foot .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 32px}
+.foot p{max-width:70ch}
+
+/* floating button + mobile dock */
+.fab{position:fixed;z-index:50;right:calc(22px + env(safe-area-inset-right,0px));bottom:calc(22px + env(safe-area-inset-bottom,0px));box-shadow:0 10px 26px -10px var(--shade)}
+.dock{display:none}
+@media (max-width:700px){
+  .fab{display:none}
+  body{padding-bottom:64px}
+  .dock{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--surface);border-top:1px solid var(--line);padding-top:6px;padding-bottom:calc(6px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+  .dock-i{position:relative;display:grid;justify-items:center;align-content:center;gap:4px;min-height:50px;padding:2px;font:500 11px/1.1 var(--f-body);color:var(--ink);text-decoration:none;background:none;border:0;cursor:pointer;min-width:0}
+  .dock-i svg.i,.dock-i .mk{width:22px;height:22px}
+  .dock-i .mk{font-size:11px}
+  .dock-i>span:last-of-type{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .dock-i .udot{top:2px;right:calc(50% - 18px)}
+}
+
+/* chat */
+.chat{position:fixed;z-index:60;right:calc(22px + env(safe-area-inset-right,0px));bottom:calc(22px + env(safe-area-inset-bottom,0px));width:400px;height:min(680px,calc(100vh - 44px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px)));display:flex;flex-direction:column;background:var(--surface);border:2px solid var(--ink);border-radius:8px;box-shadow:0 28px 60px -22px var(--shade);overflow:hidden}
+@media (prefers-reduced-motion: no-preference){.chat:not([hidden]){animation:rise .18s ease-out}}
+@keyframes rise{from{transform:translateY(10px)}to{transform:none}}
+@media (max-width:700px){
+  .chat{inset:0;width:auto;height:auto;border:0;border-radius:0;box-shadow:none;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px)}
+  html.lock,html.lock body{overflow:hidden}
+}
+.bandhead{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 10px 12px 16px;background:var(--ink);color:var(--surface);flex:none}
+.bandhead b{display:block;font:800 21px/1 var(--f-display);text-transform:uppercase;letter-spacing:.02em}
+.bandhead .sub,.bandhead .state{display:flex;margin-top:6px;font:500 11.5px/1.3 var(--f-mono);opacity:.85}
+.bandhead .icon-btn:hover{border-color:currentColor}
+.chat-body{flex:1;min-height:110px;overflow-y:auto;overscroll-behavior:contain;padding:16px;display:flex;flex-direction:column;gap:10px}
+.msg{max-width:86%;padding:9px 12px 7px;border-radius:10px;font-size:15px;line-height:1.45}
+.msg-text{white-space:pre-wrap;overflow-wrap:anywhere}
+.msg-in{align-self:flex-start;background:var(--paper);border-bottom-left-radius:3px}
+.msg-out{align-self:flex-end;background:var(--ink);color:var(--surface);border-bottom-right-radius:3px}
+.msg-out.is-fail{background:var(--surface);color:var(--ink);border:1.5px solid var(--plus)}
+.msg-meta{margin-top:4px;font:500 11px/1.2 var(--f-mono);opacity:.72}
+.msg-sys{align-self:stretch;max-width:none;border:1.5px dashed var(--line-2);display:grid;gap:10px;padding:12px}
+.msg-acts{display:flex;flex-wrap:wrap;gap:6px}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:2px 16px 10px;scrollbar-width:none;flex:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;border:1.5px solid var(--line-2);border-radius:999px;padding:6px 12px;font-size:13.5px;background:var(--surface);cursor:pointer;white-space:nowrap}
+.chip:hover{border-color:var(--ink)}
+.chat-form{border-top:1.5px solid var(--line);padding:12px 16px;display:grid;gap:10px;flex:none}
+.who{display:grid;gap:10px}
+.who-row{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.2fr);gap:8px}
+.who .inp{min-height:42px}
+.seg-sm label{min-height:34px;padding:0 10px;font-size:13.5px}
+.seg-sm{margin-top:5px}
+.consent label{font-size:13px;color:var(--ink-2)}
+.who-sum{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:13.5px;color:var(--ink-2)}
+.who-sum span{min-width:0;overflow-wrap:anywhere}
+.compose{display:flex;gap:8px;align-items:flex-end}
+.compose textarea{flex:1;min-width:0;resize:none;min-height:46px;max-height:140px;overflow-y:auto}
+.send{width:46px;height:46px;padding:0;flex:none}
+.chat-alt{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:10px 16px 14px;border-top:1px solid var(--line);font-size:13px;color:var(--ink-2);flex:none}
+.chat-alt .btn{min-height:34px;padding:0 10px;font-size:13px;gap:6px}
+.chat-alt .mk{width:18px;height:18px;font-size:10px}
+
+/* sheet */
+.sheet{position:fixed;inset:0;z-index:80;display:grid;place-items:center;background:var(--scrim);padding:16px}
+.sheet-card{width:min(440px,100%);max-height:100%;overflow:auto;background:var(--surface);border:2px solid var(--ink);border-radius:8px;display:grid;gap:14px;padding:0 0 18px}
+.sheet-card>*:not(.bandhead){margin-inline:18px}
+.sheet-card .bandhead{margin:0}
+.sheet-num{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px}
+.sheet-num .mono{font-size:21px}
+.sheet pre{margin:6px 0 8px;max-height:140px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;font:500 12.5px/1.5 var(--f-mono);background:var(--paper);padding:10px 12px;border-radius:var(--r)}
+@media (max-width:700px){.sheet{place-items:end stretch;padding:0}.sheet-card{width:100%;border-radius:8px 8px 0 0;border-bottom:0;padding-bottom:calc(18px + env(safe-area-inset-bottom,0px))}}
+
+/* toast */
+.toast{position:fixed;z-index:90;left:16px;right:16px;bottom:calc(24px + env(safe-area-inset-bottom,0px));margin-inline:auto;width:fit-content;max-width:520px;background:var(--ink);color:var(--surface);padding:11px 16px;border-radius:var(--r);font-size:14px;line-height:1.4;box-shadow:0 10px 26px -10px var(--shade)}
+@media (max-width:700px){.toast{bottom:calc(78px + env(safe-area-inset-bottom,0px))}}
+
+/* inbox (только владелец и редакторы) */
+.inbox{position:fixed;z-index:70;top:0;right:0;bottom:0;width:min(470px,100%);background:var(--surface);border-left:2px solid var(--ink);display:flex;flex-direction:column;box-shadow:-20px 0 50px -30px var(--shade);padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);padding-right:env(safe-area-inset-right,0px)}
+.inbox-list{flex:1;overflow-y:auto}
+.inbox-empty{padding:24px 16px;color:var(--ink-2);display:grid;gap:10px}
+.lrow{display:grid;gap:5px;width:100%;text-align:left;padding:14px 16px;border:0;border-bottom:1px solid var(--line);background:none;cursor:pointer}
+.lrow:hover{background:var(--paper)}
+.lrow-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.lrow-top b{font-weight:600;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lrow .mono{font-size:13px;color:var(--ink-2)}
+.lrow-last{font-size:14px;color:var(--ink-2);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere}
+.pill{flex:none;font:500 11px/1 var(--f-mono);text-transform:uppercase;letter-spacing:.05em;padding:4px 7px;border-radius:3px;border:1.5px solid currentColor}
+.pill-new{color:var(--plus)}.pill-work{color:var(--warn)}.pill-done{color:var(--ok)}
+.thread{flex:1;display:flex;flex-direction:column;min-height:0}
+.thread-head{padding:12px 16px;border-bottom:1px solid var(--line);display:grid;gap:10px;flex:none}
+.thread-who{display:grid;gap:2px}
+.thread-who b{font-size:17px;overflow-wrap:anywhere}
+.thread-who .mono{font-size:14px;overflow-wrap:anywhere}
+.thread-acts{display:flex;flex-wrap:wrap;gap:6px}
+.thread-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px}
+.thread-row select{width:auto;min-height:38px;padding:6px 10px}
+.back{display:inline-flex;align-items:center;gap:4px;text-decoration:none}
+.back svg.i{width:16px;height:16px}
+
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M6.6 3.5h2.7l1.6 4.3-2.2 1.3a11 11 0 0 0 6.2 6.2l1.3-2.2 4.3 1.6v2.7a2 2 0 0 1-2.2 2A16.6 16.6 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2z"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M5 4h14a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-8l-5 4v-4H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="1.5"/><path d="M5 15V5a1 1 0 0 1 1-1h9"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-inbox" viewBox="0 0 24 24"><path d="M4 13l2.5-8h11L20 13v6H4z"/><path d="M4 13h5l1 2h4l1-2h5"/></symbol>
+</svg>
+
+<header class="head">
+  <div class="wrap head-bar">
+    <a class="logo" href="#top" aria-label="Аккумуляторы Казани, на главную">
+      <span class="glyph" aria-hidden="true"></span>
+      <span class="logo-text">Аккумуляторы <b>Казани</b></span>
+    </a>
+    <nav class="nav" aria-label="Разделы">
+      <a href="#podbor">Подбор</a>
+      <a href="#katalog">Каталог</a>
+      <a href="#vyezd">Выезд</a>
+      <a href="#priem">Приём АКБ</a>
+      <a href="#kak">Как купить</a>
+      <a href="#spravka">Справка</a>
+      <a href="#kontakty">Контакты</a>
+    </nav>
+    <div class="head-tools">
+      <button class="btn btn-line btn-sm" id="inboxBtn" type="button" hidden><svg class="i"><use href="#i-inbox"/></svg><span class="inbox-label">Заявки</span><span class="badge" id="inboxBadge" hidden>0</span></button>
+      <a class="head-phone mono" data-tel data-cfg="phoneDisplay" href="tel:+79377745444">+7 937 774-54-44</a>
+      <button class="btn btn-plus btn-sm head-write" type="button" data-open-chat>Написать</button>
+      <button class="icon-btn burger" id="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Меню"><svg class="i"><use href="#i-menu"/></svg></button>
+    </div>
+  </div>
+  <div class="menu" id="menu" hidden>
+    <div class="wrap">
+      <nav aria-label="Разделы">
+        <a href="#podbor">Подбор аккумулятора</a>
+        <a href="#katalog">Что продаём</a>
+        <a href="#vyezd">Выезд и прикурка</a>
+        <a href="#priem">Приём старых аккумуляторов</a>
+        <a href="#kak">Как купить</a>
+        <a href="#spravka">Справка</a>
+        <a href="#kontakty">Контакты</a>
+      </nav>
+      <div class="menu-foot">
+        <div class="menu-phone"><a class="mono" data-tel data-cfg="phoneDisplay" href="tel:+79377745444">+7 937 774-54-44</a><button class="linkbtn" type="button" data-copy="phone">скопировать</button></div>
+        <span class="state muted" data-state><i></i><span data-state-text></span></span>
+        <button class="btn btn-plus" type="button" data-open-chat><svg class="i"><use href="#i-chat"/></svg>Написать менеджеру</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow"><span>Магазин аккумуляторов</span><span>Усады · Лаишевский район</span><span class="state" data-state><i></i><span data-state-text></span></span></p>
+        <h1 class="title">Подберём аккумулятор под вашу машину</h1>
+        <div class="cells" aria-label="Что есть в продаже"><span>12 В</span><span>4–225 Ач</span><span>R+ и L+</span><span>Евро и JIS</span></div>
+        <p class="lead">Наличие и цены меняются каждый день, поэтому их сообщает менеджер. Напишите марку, модель и год машины или пришлите фото наклейки со старого аккумулятора. Ответим с подходящими вариантами и ценами.</p>
+        <div class="acts">
+          <button class="btn btn-plus" type="button" data-open-chat><svg class="i"><use href="#i-chat"/></svg>Написать на сайте</button>
+          <a class="btn btn-line" data-msg="wa" href="https://wa.me/79377745444" target="_blank" rel="noopener"><span class="mk mk-wa" aria-hidden="true">W</span>WhatsApp</a>
+          <a class="btn btn-line" data-msg="tg" href="https://t.me/+79377745444" target="_blank" rel="noopener"><span class="mk mk-tg" aria-hidden="true">T</span>Telegram</a>
+          <a class="btn btn-line" data-msg="mx" href="https://max.ru/" target="_blank" rel="noopener"><span class="mk mk-mx" aria-hidden="true">M</span>MAX</a>
+        </div>
+        <p class="call-line">Или позвоните: <a class="big mono" data-tel data-cfg="phoneDisplay" href="tel:+79377745444">+7 937 774-54-44</a><button class="linkbtn" type="button" data-copy="phone">скопировать номер</button></p>
+        <div class="notes">
+          <p class="hero-note"><span class="tagc">Выезд</span><b>Машина не заводится?</b> Приедем, прикурим или поставим новый аккумулятор на месте. <a href="#vyezd">Вызвать выезд</a></p>
+          <p class="hero-note"><span class="tagc">Скидка</span><b>Сдайте старый аккумулятор</b> и получите скидку на новый. <a href="#priem">Подробнее</a></p>
+        </div>
+      </div>
+
+      <form class="tool" id="podbor" novalidate aria-label="Заявка на подбор аккумулятора">
+        <div class="tool-top"><span>Заявка на подбор</span><span>12 V</span></div>
+        <div class="tabs" role="tablist">
+          <button type="button" class="tab" role="tab" id="tab-car" aria-selected="true" aria-controls="p-car" data-tab="car">По машине</button>
+          <button type="button" class="tab" role="tab" id="tab-old" aria-selected="false" aria-controls="p-old" data-tab="old" tabindex="-1">По старому АКБ</button>
+        </div>
+        <div class="tool-body">
+          <div class="panel" id="p-car" role="tabpanel" aria-labelledby="tab-car">
+            <div class="row2">
+              <label class="field"><span>Марка и модель</span><input class="inp" id="f-car" name="car" list="cars" autocomplete="off" placeholder="Например, Kia Rio" maxlength="60"></label>
+              <label class="field"><span>Год выпуска</span><input class="inp" id="f-year" name="year" inputmode="numeric" autocomplete="off" placeholder="2019" maxlength="4"></label>
+            </div>
+            <fieldset><legend class="lbl">Двигатель</legend>
+              <div class="seg">
+                <input type="radio" name="engine" id="e1" value="бензин" checked><label for="e1">Бензин</label>
+                <input type="radio" name="engine" id="e2" value="дизель"><label for="e2">Дизель</label>
+                <input type="radio" name="engine" id="e3" value="гибрид"><label for="e3">Гибрид</label>
+              </div>
+            </fieldset>
+            <fieldset><legend class="lbl">Система старт-стоп</legend>
+              <div class="seg">
+                <input type="radio" name="ss" id="s1" value="есть"><label for="s1">Есть</label>
+                <input type="radio" name="ss" id="s2" value="нет"><label for="s2">Нет</label>
+                <input type="radio" name="ss" id="s3" value="не знаю" checked><label for="s3">Не знаю</label>
+              </div>
+            </fieldset>
+          </div>
+
+          <div class="panel" id="p-old" role="tabpanel" aria-labelledby="tab-old" hidden>
+            <div class="row2 even">
+              <label class="field"><span>Ёмкость, Ач</span><input class="inp" id="f-cap" name="cap" inputmode="numeric" autocomplete="off" placeholder="60" maxlength="3"></label>
+              <label class="field"><span>Пусковой ток, А</span><input class="inp" id="f-en" name="en" inputmode="numeric" autocomplete="off" placeholder="540" maxlength="4"></label>
+            </div>
+            <fieldset><legend class="lbl">Полярность</legend>
+              <div class="pol">
+                <input type="radio" name="pol" id="pR" value="R" checked>
+                <label for="pR">
+                  <svg viewBox="0 0 64 40" aria-hidden="true"><rect class="pc" x="3" y="10" width="58" height="27" rx="3"/><rect class="pm" x="9" y="4" width="11" height="6" rx="1"/><rect class="pp" x="44" y="4" width="11" height="6" rx="1"/><text class="ps" x="14.5" y="28">−</text><text class="ps pps" x="49.5" y="28">+</text></svg>
+                  <b>Обратная</b><small>плюс справа · R+ · «0»</small>
+                </label>
+                <input type="radio" name="pol" id="pL" value="L">
+                <label for="pL">
+                  <svg viewBox="0 0 64 40" aria-hidden="true"><rect class="pc" x="3" y="10" width="58" height="27" rx="3"/><rect class="pp" x="9" y="4" width="11" height="6" rx="1"/><rect class="pm" x="44" y="4" width="11" height="6" rx="1"/><text class="ps pps" x="14.5" y="28">+</text><text class="ps" x="49.5" y="28">−</text></svg>
+                  <b>Прямая</b><small>плюс слева · L+ · «1»</small>
+                </label>
+              </div>
+              <p class="hint">Поверните аккумулятор клеммами к себе: с какой стороны плюс, такая и полярность.</p>
+            </fieldset>
+            <fieldset><legend class="lbl">Клеммы</legend>
+              <div class="seg">
+                <input type="radio" name="term" id="t1" value="стандартные" checked><label for="t1">Стандартные</label>
+                <input type="radio" name="term" id="t2" value="тонкие (азия)"><label for="t2">Тонкие, азия</label>
+              </div>
+            </fieldset>
+            <fieldset><legend class="lbl">Тип</legend>
+              <div class="seg">
+                <input type="radio" name="btype" id="b1" value="обычный"><label for="b1">Обычный</label>
+                <input type="radio" name="btype" id="b2" value="EFB"><label for="b2">EFB</label>
+                <input type="radio" name="btype" id="b3" value="AGM"><label for="b3">AGM</label>
+                <input type="radio" name="btype" id="b4" value="не знаю" checked><label for="b4">Не знаю</label>
+              </div>
+            </fieldset>
+          </div>
+
+          <div class="chk">
+            <input type="checkbox" name="install" id="x1"><label for="x1"><span class="box"><svg class="i"><use href="#i-check"/></svg></span>Нужна установка</label>
+            <input type="checkbox" name="tradein" id="x2"><label for="x2"><span class="box"><svg class="i"><use href="#i-check"/></svg></span>Сдам старый, нужна скидка</label>
+            <input type="checkbox" name="visit" id="x3"><label for="x3"><span class="box"><svg class="i"><use href="#i-check"/></svg></span>Нужен выезд к машине</label>
+          </div>
+
+          <div class="req">
+            <div class="req-h">Текст заявки</div>
+            <div class="cells" id="reqCells" aria-hidden="true"></div>
+            <pre id="reqText" class="empty" aria-live="polite"></pre>
+          </div>
+          <p class="err" id="podborErr" role="alert" hidden></p>
+          <button class="btn btn-plus btn-block" type="submit">Отправить менеджеру<svg class="i"><use href="#i-send"/></svg></button>
+          <div class="alt"><span>или в мессенджер:</span>
+            <a class="btn btn-line btn-sm" data-msg="wa" data-src="podbor" href="https://wa.me/79377745444" target="_blank" rel="noopener"><span class="mk mk-wa" aria-hidden="true">W</span>WhatsApp</a>
+            <a class="btn btn-line btn-sm" data-msg="tg" data-src="podbor" href="https://t.me/+79377745444" target="_blank" rel="noopener"><span class="mk mk-tg" aria-hidden="true">T</span>Telegram</a>
+            <a class="btn btn-line btn-sm" data-msg="mx" data-src="podbor" href="https://max.ru/" target="_blank" rel="noopener"><span class="mk mk-mx" aria-hidden="true">M</span>MAX</a>
+          </div>
+        </div>
+        <datalist id="cars">
+          <option value="Lada Vesta"><option value="Lada Granta"><option value="Lada Largus"><option value="Lada Niva Travel"><option value="Kia Rio"><option value="Kia Sportage"><option value="Hyundai Solaris"><option value="Hyundai Creta"><option value="Volkswagen Polo"><option value="Skoda Rapid"><option value="Skoda Octavia"><option value="Renault Logan"><option value="Renault Duster"><option value="Toyota Camry"><option value="Toyota RAV4"><option value="Nissan Qashqai"><option value="Mitsubishi Outlander"><option value="Haval Jolion"><option value="Chery Tiggo 7 Pro"><option value="Geely Coolray"><option value="ГАЗель Next"><option value="УАЗ Патриот"><option value="КАМАЗ">
+        </datalist>
+      </form>
+    </div>
+  </section>
+
+  <section class="sec" id="katalog">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="h2">Что продаём</h2>
+        <p>Карточки товаров появятся позже. Пока нажмите «Цена и наличие» в нужной строке, и менеджер пришлёт актуальные варианты.</p>
+      </div>
+      <ul class="cat">
+        <li>
+          <div><h3>Легковые</h3><p>Европейский стандарт корпуса и клемм. Lada, Renault, Volkswagen, Skoda и большинство машин российской сборки.</p></div>
+          <div class="spec"><span>45–100 Ач</span><span>400–900 А · R+ / L+</span></div>
+          <button class="btn btn-line btn-sm" type="button" data-ask="легковые, европейский стандарт">Цена и наличие</button>
+        </li>
+        <li>
+          <div><h3>Азиатские (JIS)</h3><p>Узкий корпус и тонкие клеммы. Toyota, Nissan, Mitsubishi, Honda, Mazda и часть корейских машин.</p></div>
+          <div class="spec"><span>35–100 Ач</span><span>300–850 А · тонкие клеммы</span></div>
+          <button class="btn btn-line btn-sm" type="button" data-ask="азиатские (JIS)">Цена и наличие</button>
+        </li>
+        <li>
+          <div><h3>Для старт-стоп</h3><p>EFB и AGM для машин с системой старт-стоп. Если на машине стоял AGM, менять нужно тоже на AGM.</p></div>
+          <div class="spec"><span>60–105 Ач</span><span>EFB · AGM</span></div>
+          <button class="btn btn-line btn-sm" type="button" data-ask="для старт-стоп, EFB или AGM">Цена и наличие</button>
+        </li>
+        <li>
+          <div><h3>Грузовые и спецтехника</h3><p>КАМАЗ, ГАЗ, МАЗ, автобусы, тракторы, погрузчики.</p></div>
+          <div class="spec"><span>132–225 Ач</span><span>900–1500 А</span></div>
+          <button class="btn btn-line btn-sm" type="button" data-ask="грузовые и для спецтехники">Цена и наличие</button>
+        </li>
+        <li>
+          <div><h3>Мото и квадроциклы</h3><p>Мотоциклы, скутеры, квадроциклы, снегоходы, гидроциклы.</p></div>
+          <div class="spec"><span>4–30 Ач</span><span>AGM · гелевые</span></div>
+          <button class="btn btn-line btn-sm" type="button" data-ask="для мото, квадроцикла или снегохода">Цена и наличие</button>
+        </li>
+        <li>
+          <div><h3>Лодочные и тяговые</h3><p>Для лодочных электромоторов, эхолотов и автодомов. Переносят глубокий разряд.</p></div>
+          <div class="spec"><span>60–150 Ач</span><span>глубокого разряда</span></div>
+          <button class="btn btn-line btn-sm" type="button" data-ask="лодочные или тяговые">Цена и наличие</button>
+        </li>
+        <li>
+          <div><h3>Для ИБП и котлов</h3><p>Источники бесперебойного питания, газовые котлы, сигнализации, солнечные станции.</p></div>
+          <div class="spec"><span>7–200 Ач</span><span>12 В · AGM · GEL</span></div>
+          <button class="btn btn-line btn-sm" type="button" data-ask="для ИБП или котла">Цена и наличие</button>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec" id="vyezd">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="h2">Выезд и прикурка</h2>
+        <p>Приедем к машине: домой, на работу, на парковку или на трассу. Стоимость и время приезда зависят от адреса, менеджер назовёт их сразу.</p>
+      </div>
+      <div class="svc">
+        <article>
+          <span class="k">Машина не заводится</span>
+          <h3>Прикурка автомобиля</h3>
+          <p>Сел аккумулятор после мороза или забытых фар. Приедем и запустим двигатель, проверим заряд аккумулятора и подскажем, нужна ли замена.</p>
+          <ul class="need" aria-label="Что сообщить">
+            <li>адрес или геопозиция</li>
+            <li>марка и модель машины</li>
+            <li>номер для связи</li>
+          </ul>
+          <div class="acts">
+            <button class="btn btn-plus" type="button" data-chat="Здравствуйте! Нужна прикурка, машина не заводится.&#10;Адрес: &#10;Машина: "><svg class="i"><use href="#i-chat"/></svg>Вызвать прикурку</button>
+            <a class="btn btn-line" data-msg="wa" data-text="Здравствуйте! Нужна прикурка, машина не заводится. Отправляю геопозицию." href="https://wa.me/79377745444" target="_blank" rel="noopener"><span class="mk mk-wa" aria-hidden="true">W</span>WhatsApp</a>
+            <a class="btn btn-line" data-tel href="tel:+79377745444"><svg class="i"><use href="#i-phone"/></svg>Позвонить</a>
+          </div>
+        </article>
+        <article>
+          <span class="k">Некогда ехать к нам</span>
+          <h3>Выезд с установкой</h3>
+          <p>Подберём аккумулятор по вашей машине, привезём, снимем старый и установим новый на месте. Старый заберём и сделаем за него скидку.</p>
+          <ul class="need" aria-label="Что сообщить">
+            <li>марка, модель и год машины</li>
+            <li>адрес и удобное время</li>
+            <li>номер для связи</li>
+          </ul>
+          <div class="acts">
+            <button class="btn btn-plus" type="button" data-chat="Здравствуйте! Нужен выезд с установкой аккумулятора.&#10;Машина: &#10;Адрес: &#10;Удобное время: "><svg class="i"><use href="#i-chat"/></svg>Заказать выезд</button>
+            <a class="btn btn-line" data-msg="wa" data-text="Здравствуйте! Нужен выезд с установкой аккумулятора." href="https://wa.me/79377745444" target="_blank" rel="noopener"><span class="mk mk-wa" aria-hidden="true">W</span>WhatsApp</a>
+            <a class="btn btn-line" data-tel href="tel:+79377745444"><svg class="i"><use href="#i-phone"/></svg>Позвонить</a>
+          </div>
+        </article>
+      </div>
+      <p class="svc-foot">В WhatsApp, Telegram и MAX можно сразу отправить геопозицию, так мы найдём вас быстрее. Номер для звонка: <span class="mono" data-cfg="phoneDisplay">+7 937 774-54-44</span>.</p>
+    </div>
+  </section>
+
+  <section class="sec" id="priem">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="h2">Приём старых аккумуляторов</h2>
+        <p>Старый аккумулятор нельзя выбрасывать с бытовым мусором: в нём свинец и кислота. Привезите его на Дорожную, 3, или отдайте мастеру на выезде.</p>
+      </div>
+      <div class="svc">
+        <article>
+          <span class="k">При покупке нового</span>
+          <h3>Скидка за старый аккумулятор</h3>
+          <p>Сдаёте старый аккумулятор и покупаете новый у нас, мы делаем скидку на новый. Размер скидки менеджер назовёт сразу.</p>
+          <ul class="need" aria-label="Что сообщить">
+            <li>ёмкость старого аккумулятора, Ач</li>
+            <li>какой нужен новый или марка машины</li>
+          </ul>
+          <div class="acts">
+            <button class="btn btn-plus" type="button" data-chat="Здравствуйте! Хочу сдать старый аккумулятор и купить новый. Какая будет скидка?&#10;Старый аккумулятор, Ач: &#10;Машина: "><svg class="i"><use href="#i-chat"/></svg>Узнать скидку</button>
+            <a class="btn btn-line" data-msg="wa" data-text="Здравствуйте! Хочу сдать старый аккумулятор и купить новый. Какая будет скидка?" href="https://wa.me/79377745444" target="_blank" rel="noopener"><span class="mk mk-wa" aria-hidden="true">W</span>WhatsApp</a>
+          </div>
+        </article>
+        <article>
+          <span class="k">Без покупки</span>
+          <h3>Сдать старый аккумулятор</h3>
+          <p>Принимаем отработанные свинцово-кислотные аккумуляторы любых марок, в том числе несколько штук сразу. Условия приёма уточните у менеджера.</p>
+          <ul class="need" aria-label="Что принимаем">
+            <li>легковые и грузовые</li>
+            <li>мото и лодочные</li>
+            <li>от ИБП, котлов и сигнализаций</li>
+          </ul>
+          <div class="acts">
+            <button class="btn btn-plus" type="button" data-chat="Здравствуйте! Хочу сдать старый аккумулятор.&#10;Что сдаю: &#10;Количество: "><svg class="i"><use href="#i-chat"/></svg>Сдать аккумулятор</button>
+            <a class="btn btn-line" data-msg="wa" data-text="Здравствуйте! Хочу сдать старый аккумулятор." href="https://wa.me/79377745444" target="_blank" rel="noopener"><span class="mk mk-wa" aria-hidden="true">W</span>WhatsApp</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="kak">
+    <div class="wrap">
+      <div class="sec-head"><h2 class="h2">Как купить</h2><p>Без регистрации и корзины. Достаточно одного сообщения.</p></div>
+      <ol class="steps">
+        <li><span class="n">1</span><h3>Напишите или позвоните</h3><p>Марка, модель и год машины или фото наклейки со старого аккумулятора. Фото удобнее отправить в WhatsApp, Telegram или MAX.</p></li>
+        <li><span class="n">2</span><h3>Получите варианты с ценами</h3><p>Менеджер проверит наличие и пришлёт подходящие модели с ценами. Если нужного нет, предложит замену или привезёт под заказ.</p></li>
+        <li><span class="n">3</span><h3>Заберите или закажите выезд</h3><p>Заберите в Усадах на Дорожной, 3, или мы приедем и установим аккумулятор на месте. За старый аккумулятор сделаем скидку.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="sec" id="spravka">
+    <div class="wrap faq-grid">
+      <div class="faq-side">
+        <h2 class="h2">Справка</h2>
+        <p>Что чаще всего спрашивают при выборе аккумулятора.</p>
+        <div><button class="btn btn-line" type="button" data-open-chat><svg class="i"><use href="#i-chat"/></svg>Спросить менеджера</button></div>
+      </div>
+      <div class="faq">
+        <details open>
+          <summary>Как понять, какой аккумулятор нужен?</summary>
+          <div class="ans">
+            <p>Обычно достаточно марки, модели и года машины. Ещё точнее получится по наклейке старого аккумулятора: на ней указаны ёмкость (Ач), пусковой ток (А) и полярность. Сфотографируйте её и отправьте нам.</p>
+            <div class="alt">
+              <a class="btn btn-line btn-sm" data-msg="wa" data-text="Здравствуйте! Отправляю фото наклейки старого аккумулятора. Подберите, пожалуйста, замену." href="https://wa.me/79377745444" target="_blank" rel="noopener"><span class="mk mk-wa" aria-hidden="true">W</span>Фото в WhatsApp</a>
+              <a class="btn btn-line btn-sm" data-msg="tg" data-text="Здравствуйте! Отправляю фото наклейки старого аккумулятора. Подберите, пожалуйста, замену." href="https://t.me/+79377745444" target="_blank" rel="noopener"><span class="mk mk-tg" aria-hidden="true">T</span>в Telegram</a>
+              <a class="btn btn-line btn-sm" data-msg="mx" data-text="Здравствуйте! Отправляю фото наклейки старого аккумулятора. Подберите, пожалуйста, замену." href="https://max.ru/" target="_blank" rel="noopener"><span class="mk mk-mx" aria-hidden="true">M</span>в MAX</a>
+            </div>
+          </div>
+        </details>
+        <details>
+          <summary>Что такое прямая и обратная полярность?</summary>
+          <div class="ans"><p>Поверните аккумулятор клеммами к себе. Если плюс справа, полярность обратная (R+, её ещё обозначают «0»). Если плюс слева, прямая (L+, «1»). Обратная встречается чаще. Аккумулятор с другой полярностью может не встать на место: провода не дотянутся до клемм.</p></div>
+        </details>
+        <details>
+          <summary>Можно поставить аккумулятор большей ёмкости?</summary>
+          <div class="ans"><p>Можно взять на 5–10 Ач больше штатного, если он помещается на посадочное место и совпадает по полярности и клеммам. Генератор его зарядит. Брать сильно больше нет смысла: в коротких поездках такой аккумулятор будет недозаряжаться.</p></div>
+        </details>
+        <details>
+          <summary>Чем отличаются EFB и AGM?</summary>
+          <div class="ans"><p>Оба типа ставят на машины со старт-стоп. EFB — усиленный жидкостный аккумулятор, он выдерживает частые пуски. В AGM электролит впитан в стекловолокно: такой аккумулятор лучше переносит глубокий разряд и стоит дороже. Если на машине стоял AGM, менять нужно тоже на AGM.</p></div>
+        </details>
+        <details>
+          <summary>Что делать со старым аккумулятором?</summary>
+          <div class="ans"><p>Сдайте его нам. Если покупаете новый, сделаем на него скидку. Если новый не нужен, примем старый и без покупки. Выбрасывать аккумулятор с бытовым мусором нельзя: в нём свинец и кислота.</p><div><a class="linkbtn" href="#priem">Подробнее о приёме</a></div></div>
+        </details>
+        <details>
+          <summary>Какая гарантия?</summary>
+          <div class="ans"><p>Гарантию даёт производитель, срок зависит от марки и указан в гарантийном талоне. Сохраните чек и талон. Если аккумулятор перестал держать заряд, привезите его вместе с документами, проверим на месте.</p></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec contacts" id="kontakty">
+    <div class="wrap c-grid">
+      <div>
+        <h2 class="h2">Контакты</h2>
+        <p class="addr" data-cfg="addressShort">Усады, ул. Дорожная, 3</p>
+        <p class="addr-sub" data-cfg="addressRegion">Лаишевский район, Республика Татарстан</p>
+        <div class="acts">
+          <a class="btn btn-line" data-map="yandex" href="https://yandex.ru/maps/" target="_blank" rel="noopener"><svg class="i"><use href="#i-pin"/></svg>Яндекс Карты</a>
+          <a class="btn btn-line" data-map="2gis" href="https://2gis.ru/kazan" target="_blank" rel="noopener"><svg class="i"><use href="#i-pin"/></svg>2ГИС</a>
+        </div>
+      </div>
+      <dl class="dl">
+        <div><dt>Телефон</dt><dd><a class="big mono" data-tel data-cfg="phoneDisplay" href="tel:+79377745444">+7 937 774-54-44</a><button class="btn btn-line btn-sm" type="button" data-copy="phone"><svg class="i"><use href="#i-copy"/></svg>Скопировать</button></dd></div>
+        <div><dt>Режим работы</dt><dd><span data-cfg="hoursLabel">Ежедневно, 9:00–19:00</span><span class="state muted" data-state><i></i><span data-state-text></span></span></dd></div>
+        <div><dt>Мессенджеры</dt><dd>
+          <a class="btn btn-line btn-sm" data-msg="wa" href="https://wa.me/79377745444" target="_blank" rel="noopener"><span class="mk mk-wa" aria-hidden="true">W</span>WhatsApp</a>
+          <a class="btn btn-line btn-sm" data-msg="tg" href="https://t.me/+79377745444" target="_blank" rel="noopener"><span class="mk mk-tg" aria-hidden="true">T</span>Telegram</a>
+          <a class="btn btn-line btn-sm" data-msg="mx" href="https://max.ru/" target="_blank" rel="noopener"><span class="mk mk-mx" aria-hidden="true">M</span>MAX</a>
+        </dd></div>
+        <div><dt>На сайте</dt><dd><button class="btn btn-plus btn-sm" type="button" data-open-chat><svg class="i"><use href="#i-chat"/></svg>Открыть чат с менеджером</button></dd></div>
+      </dl>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p>© <span id="year">2026</span> Аккумуляторы Казани. Информация на сайте не является публичной офертой. Цены и наличие уточняйте у менеджера.</p>
+    <p><span data-cfg="addressFull">Лаишевский район, Усады, ул. Дорожная, 3</span> · <span class="mono" data-cfg="phoneDisplay">+7 937 774-54-44</span></p>
+  </div>
+</footer>
+
+<button class="btn btn-plus fab" id="fab" type="button" data-open-chat><svg class="i"><use href="#i-chat"/></svg>Написать менеджеру<i class="udot" hidden></i></button>
+
+<nav class="dock" aria-label="Связаться">
+  <a class="dock-i" data-tel href="tel:+79377745444"><svg class="i"><use href="#i-phone"/></svg><span>Звонок</span></a>
+  <button class="dock-i" type="button" data-open-chat><svg class="i"><use href="#i-chat"/></svg><span>Чат</span><i class="udot" hidden></i></button>
+  <a class="dock-i" data-msg="wa" href="https://wa.me/79377745444" target="_blank" rel="noopener"><span class="mk mk-wa" aria-hidden="true">W</span><span>WhatsApp</span></a>
+  <a class="dock-i" data-msg="tg" href="https://t.me/+79377745444" target="_blank" rel="noopener"><span class="mk mk-tg" aria-hidden="true">T</span><span>Telegram</span></a>
+  <a class="dock-i" data-msg="mx" href="https://max.ru/" target="_blank" rel="noopener"><span class="mk mk-mx" aria-hidden="true">M</span><span>MAX</span></a>
+</nav>
+
+<section class="chat" id="chat" role="dialog" aria-labelledby="chatTitle" hidden>
+  <div class="bandhead">
+    <div><b id="chatTitle">Менеджер</b><span class="state" data-state><i></i><span data-state-text></span></span></div>
+    <button class="icon-btn" type="button" id="chatClose" aria-label="Закрыть чат"><svg class="i"><use href="#i-x"/></svg></button>
+  </div>
+  <div class="chat-body" id="chatBody" aria-live="polite"></div>
+  <div class="chips" id="chips">
+    <button class="chip" type="button" data-chip="Здравствуйте! Нужна прикурка, машина не заводится.&#10;Адрес: ">Нужна прикурка</button>
+    <button class="chip" type="button" data-chip="Здравствуйте! Нужен выезд с установкой аккумулятора.&#10;Машина: &#10;Адрес: ">Выезд с установкой</button>
+    <button class="chip" type="button" data-chip="Здравствуйте! Подберите аккумулятор для ">Подобрать по машине</button>
+    <button class="chip" type="button" data-chip="Здравствуйте! Есть ли в наличии аккумулятор ">Есть в наличии?</button>
+    <button class="chip" type="button" data-chip="Здравствуйте! Хочу сдать старый аккумулятор и купить новый. Какая будет скидка?">Скидка за старый</button>
+    <button class="chip" type="button" data-chip="Здравствуйте! Хочу сдать старый аккумулятор.&#10;Что сдаю: ">Сдать старый</button>
+    <button class="chip" type="button" data-chip="Здравствуйте! Как к вам проехать?">Как проехать?</button>
+  </div>
+  <form class="chat-form" id="chatForm" novalidate>
+    <div class="who" id="who">
+      <div class="who-row">
+        <input class="inp" id="c-name" name="name" autocomplete="given-name" placeholder="Имя" aria-label="Имя" maxlength="60">
+        <input class="inp" id="c-contact" name="contact" autocomplete="tel" placeholder="Телефон или @ник" aria-label="Телефон или ник в Telegram" maxlength="60">
+      </div>
+      <fieldset><legend class="lbl">Как вам ответить</legend>
+        <div class="seg seg-sm">
+          <input type="radio" name="reply" id="r1" value="call"><label for="r1">Позвонить</label>
+          <input type="radio" name="reply" id="r2" value="wa" checked><label for="r2">WhatsApp</label>
+          <input type="radio" name="reply" id="r3" value="tg"><label for="r3">Telegram</label>
+          <input type="radio" name="reply" id="r4" value="mx"><label for="r4">MAX</label>
+        </div>
+      </fieldset>
+      <div class="chk consent"><input type="checkbox" id="c-consent"><label for="c-consent"><span class="box"><svg class="i"><use href="#i-check"/></svg></span>Согласен на обработку персональных данных</label></div>
+    </div>
+    <div class="who-sum" id="whoSum" hidden><span id="whoSumText"></span><button class="linkbtn" type="button" id="whoEdit">изменить</button></div>
+    <div class="compose">
+      <textarea class="inp" id="chatText" rows="1" placeholder="Сообщение менеджеру" aria-label="Сообщение менеджеру" maxlength="2000"></textarea>
+      <button class="btn btn-plus send" type="submit" aria-label="Отправить"><svg class="i"><use href="#i-send"/></svg></button>
+    </div>
+    <p class="err" id="chatErr" role="alert" hidden></p>
+  </form>
+  <div class="chat-alt"><span>Удобнее в мессенджере:</span>
+    <a class="btn btn-line" data-msg="wa" data-src="draft" href="https://wa.me/79377745444" target="_blank" rel="noopener"><span class="mk mk-wa" aria-hidden="true">W</span>WhatsApp</a>
+    <a class="btn btn-line" data-msg="tg" data-src="draft" href="https://t.me/+79377745444" target="_blank" rel="noopener"><span class="mk mk-tg" aria-hidden="true">T</span>Telegram</a>
+    <a class="btn btn-line" data-msg="mx" data-src="draft" href="https://max.ru/" target="_blank" rel="noopener"><span class="mk mk-mx" aria-hidden="true">M</span>MAX</a>
+  </div>
+</section>
+
+<div class="sheet" id="maxSheet" hidden>
+  <div class="sheet-card" role="dialog" aria-labelledby="maxTitle">
+    <div class="bandhead"><div><b id="maxTitle">Написать в MAX</b></div><button class="icon-btn" type="button" data-close-sheet aria-label="Закрыть"><svg class="i"><use href="#i-x"/></svg></button></div>
+    <p>Найдите нас в MAX по номеру телефона и отправьте сообщение.</p>
+    <div class="sheet-num"><span class="mono" data-cfg="phoneDisplay">+7 937 774-54-44</span><button class="btn btn-line btn-sm" type="button" data-copy="phone"><svg class="i"><use href="#i-copy"/></svg>Скопировать номер</button></div>
+    <div>
+      <p class="lbl">Текст сообщения</p>
+      <pre id="maxText"></pre>
+      <button class="btn btn-line btn-sm" type="button" id="maxCopy"><svg class="i"><use href="#i-copy"/></svg>Скопировать текст</button>
+    </div>
+    <a class="btn btn-plus btn-block" href="https://max.ru/" target="_blank" rel="noopener">Открыть MAX</a>
+  </div>
+</div>
+
+<aside class="inbox" id="inbox" aria-labelledby="inboxTitle" hidden>
+  <div class="bandhead">
+    <div><b id="inboxTitle">Заявки с сайта</b><span class="sub">Видите только вы и редакторы</span></div>
+    <button class="icon-btn" type="button" id="inboxClose" aria-label="Закрыть заявки"><svg class="i"><use href="#i-x"/></svg></button>
+  </div>
+  <div class="inbox-list" id="inboxList"></div>
+  <div class="thread" id="thread" hidden>
+    <div class="thread-head">
+      <button class="linkbtn back" type="button" id="threadBack"><svg class="i"><use href="#i-back"/></svg>Все заявки</button>
+      <div class="thread-who"><b id="tName"></b><span class="mono" id="tContact"></span><span class="muted" id="tReply"></span></div>
+      <div class="thread-row">
+        <div class="thread-acts" id="tActs"></div>
+        <select class="inp" id="tStatus" aria-label="Статус заявки">
+          <option value="new">Новая</option>
+          <option value="work">В работе</option>
+          <option value="done">Закрыта</option>
+        </select>
+      </div>
+    </div>
+    <div class="chat-body" id="tBody"></div>
+    <form class="chat-form" id="tForm" novalidate>
+      <div class="compose">
+        <textarea class="inp" id="tText" rows="1" placeholder="Ответ посетителю" aria-label="Ответ посетителю" maxlength="2000"></textarea>
+        <button class="btn btn-plus send" type="submit" aria-label="Ответить"><svg class="i"><use href="#i-send"/></svg></button>
+      </div>
+      <p class="hint" style="margin:0">Ответ появится у посетителя в окне чата на сайте. Если он закрыл страницу, свяжитесь с ним по контакту выше.</p>
+    </form>
+  </div>
+</aside>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ================= НАСТРОЙКИ САЙТА — меняйте здесь ================= */
+  var CONFIG = {
+    phoneDisplay: '+7 937 774-54-44',
+    phone: '+79377745444',
+    whatsapp: '79377745444',      // номер для WhatsApp, только цифры
+    telegram: '+79377745444',     // ник без @ (например akb_kazan) или номер с «+»
+    max: '',                      // ссылка на профиль MAX: Профиль → Пригласить друзей → Скопировать ссылку
+    hours: { from: 9, to: 19 },   // часы работы для отметки «сейчас работаем»
+    hoursLabel: 'Ежедневно, 9:00–19:00',
+    tz: 'Europe/Moscow',
+    addressShort: 'Усады, ул. Дорожная, 3',
+    addressRegion: 'Лаишевский район, Республика Татарстан',
+    addressFull: 'Лаишевский район, Усады, ул. Дорожная, 3',
+    mapQuery: 'Татарстан, Лаишевский район, Усады, Дорожная улица, 3',
+    endpoint: ''                  // адрес обработчика заявок на вашем хостинге (POST, JSON)
+  };
+  /* =================================================================== */
+
+  var DEFAULT_TEXT = 'Здравствуйте! Хочу подобрать аккумулятор.';
+  var GREETING = 'Здравствуйте! Напишите марку, модель и год машины или параметры старого аккумулятора. Подберём варианты и назовём цену.';
+  var REPLY = { call: 'звонком', wa: 'в WhatsApp', tg: 'в Telegram', mx: 'в MAX' };
+  var STATUS = { sending: 'отправляется…', ok: 'доставлено', fail: 'не отправлено', pick: 'выберите, куда отправить' };
+  /* Без своего обработчика заявок чат на сайте готовит сообщение и отправляет его через мессенджер или звонок */
+  var DIRECT = !CONFIG.endpoint && !(window.claude && typeof window.claude.use === 'function');
+  var LEAD_STATUS = { 'new': 'Новая', work: 'В работе', done: 'Закрыта' };
+
+  function $(s, r) { return (r || document).querySelector(s); }
+  function $$(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  var store = {
+    get: function (k, d) { try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
+    set: function (k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  };
+  var mqMobile = window.matchMedia('(max-width: 700px)');
+  var fmtTime = new Intl.DateTimeFormat('ru-RU', { hour: '2-digit', minute: '2-digit' });
+  var fmtDay = new Intl.DateTimeFormat('ru-RU', { day: 'numeric', month: 'short' });
+  function when(ts) {
+    var d = new Date(ts), n = new Date();
+    return d.toDateString() === n.toDateString() ? fmtTime.format(d) : fmtDay.format(d).replace('.', '') + ', ' + fmtTime.format(d);
+  }
+
+  /* ---------- настройки → страница ---------- */
+  $$('[data-cfg]').forEach(function (n) { var v = CONFIG[n.getAttribute('data-cfg')]; if (typeof v === 'string' && v) n.textContent = v; });
+  $$('[data-tel]').forEach(function (a) { a.href = 'tel:' + CONFIG.phone; });
+  $$('a[data-map]').forEach(function (a) {
+    var q = encodeURIComponent(CONFIG.mapQuery);
+    a.href = a.getAttribute('data-map') === '2gis' ? 'https://2gis.ru/kazan/search/' + q : 'https://yandex.ru/maps/?text=' + q;
+  });
+  $('#year').textContent = String(new Date().getFullYear());
+
+  function waLink(t) { return 'https://wa.me/' + CONFIG.whatsapp + (t ? '?text=' + encodeURIComponent(t) : ''); }
+  function tgLink() { return 'https://t.me/' + CONFIG.telegram.replace(/^@/, ''); }
+  function mxLink() { return CONFIG.max || 'https://max.ru/'; }
+  function baseHref(ch) { return ch === 'wa' ? waLink('') : ch === 'tg' ? tgLink() : mxLink(); }
+  $$('a[data-msg]').forEach(function (a) { a.href = baseHref(a.getAttribute('data-msg')); });
+
+  /* ---------- сообщения внизу экрана ---------- */
+  var toastTimer;
+  function toast(msg) {
+    var t = $('#toast'); t.textContent = msg; t.hidden = false;
+    clearTimeout(toastTimer); toastTimer = setTimeout(function () { t.hidden = true; }, 4000);
+  }
+
+  /* ---------- копирование ---------- */
+  function legacyCopy(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.top = '0'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    var ok = false; try { ok = document.execCommand('copy'); } catch (e) {}
+    ta.remove(); return ok;
+  }
+  function copy(text) {
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        return navigator.clipboard.writeText(text).then(function () { return true; }, function () { return legacyCopy(text); });
+      }
+    } catch (e) {}
+    return Promise.resolve(legacyCopy(text));
+  }
+
+  /* ---------- режим работы ---------- */
+  function workState() {
+    var h, m;
+    try {
+      var p = new Intl.DateTimeFormat('ru-RU', { timeZone: CONFIG.tz, hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).formatToParts(new Date());
+      h = +p.filter(function (x) { return x.type === 'hour'; })[0].value;
+      m = +p.filter(function (x) { return x.type === 'minute'; })[0].value;
+    } catch (e) { var d = new Date(); h = d.getHours(); m = d.getMinutes(); }
+    var t = h + m / 60;
+    if (t >= CONFIG.hours.from && t < CONFIG.hours.to) return { open: true, text: 'Сейчас работаем, до ' + CONFIG.hours.to + ':00' };
+    return { open: false, text: 'Сейчас закрыто, откроемся в ' + CONFIG.hours.from + ':00' };
+  }
+  function paintState() {
+    var s = workState();
+    $$('[data-state]').forEach(function (n) {
+      n.classList.toggle('is-open', s.open);
+      var tx = $('[data-state-text]', n); if (tx) tx.textContent = s.text;
+    });
+  }
+  paintState(); setInterval(paintState, 60000);
+
+  /* ---------- меню ---------- */
+  var burger = $('#burger'), menu = $('#menu');
+  function setMenu(open) { menu.hidden = !open; burger.setAttribute('aria-expanded', String(open)); }
+  burger.addEventListener('click', function () { setMenu(menu.hidden); });
+  menu.addEventListener('click', function (e) { if (e.target.closest('a, [data-open-chat]')) setMenu(false); });
+
+  /* ---------- подбор ---------- */
+  var pf = $('#podbor'), ptab = 'car';
+  function v(name) {
+    var f = pf.elements[name]; if (!f) return '';
+    if (f.type === 'checkbox') return f.checked;
+    return String(f.value || '').trim();
+  }
+  function setTab(k, focus) {
+    ptab = k;
+    $$('[data-tab]', pf).forEach(function (b) {
+      var on = b.getAttribute('data-tab') === k;
+      b.setAttribute('aria-selected', String(on)); b.tabIndex = on ? 0 : -1;
+      if (on && focus) b.focus();
+    });
+    $('#p-car').hidden = k !== 'car'; $('#p-old').hidden = k !== 'old';
+    $('#podborErr').hidden = true;
+    renderReq();
+  }
+  $$('[data-tab]', pf).forEach(function (b) {
+    b.addEventListener('click', function () { setTab(b.getAttribute('data-tab')); });
+    b.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); setTab(ptab === 'car' ? 'old' : 'car', true); }
+    });
+  });
+  ['f-year', 'f-cap', 'f-en'].forEach(function (id) {
+    $('#' + id).addEventListener('input', function (e) { var t = e.target, c = t.value.replace(/\D/g, ''); if (c !== t.value) t.value = c; });
+  });
+
+  function podborText() {
+    var L = [];
+    if (ptab === 'car') {
+      var car = v('car'); if (!car) return '';
+      var y = v('year');
+      L.push('Автомобиль: ' + car + (y ? ', ' + y + ' г.' : ''));
+      L.push('Двигатель: ' + v('engine'));
+      L.push('Старт-стоп: ' + v('ss'));
+    } else {
+      var cap = v('cap'), en = v('en'); if (!cap && !en) return '';
+      if (cap) L.push('Ёмкость: ' + cap + ' Ач');
+      if (en) L.push('Пусковой ток: ' + en + ' А');
+      L.push('Полярность: ' + (v('pol') === 'L' ? 'прямая, плюс слева' : 'обратная, плюс справа'));
+      L.push('Клеммы: ' + v('term'));
+      L.push('Тип: ' + v('btype'));
+    }
+    if (v('install')) L.push('Нужна установка');
+    if (v('tradein')) L.push('Сдам старый аккумулятор, интересует скидка на новый');
+    if (v('visit')) L.push('Нужен выезд к машине');
+    return 'Здравствуйте! Подберите, пожалуйста, аккумулятор.\n' + L.join('\n');
+  }
+  function renderReq() {
+    var cells;
+    if (ptab === 'car') {
+      var car = v('car'), y = v('year');
+      cells = [[car || 'марка и модель', !car], [y ? y + ' г.' : 'год', !y], [v('engine'), false], ['старт-стоп: ' + v('ss'), false]];
+    } else {
+      var cap = v('cap'), en = v('en');
+      cells = [['12 В', false], [cap ? cap + ' Ач' : '— Ач', !cap], [en ? en + ' А' : '— А', !en], [v('pol') === 'L' ? 'L+ прямая' : 'R+ обратная', false], [v('term'), false]];
+    }
+    var box = $('#reqCells'); box.textContent = '';
+    cells.forEach(function (c) { box.appendChild(el('span', c[1] ? 'ghost' : '', c[0])); });
+    var t = podborText(), pre = $('#reqText');
+    pre.classList.toggle('empty', !t);
+    pre.textContent = t || (ptab === 'car' ? 'Укажите марку и модель машины, и здесь появится текст заявки.' : 'Укажите ёмкость или пусковой ток, и здесь появится текст заявки.');
+  }
+  pf.addEventListener('input', renderReq);
+  pf.addEventListener('change', renderReq);
+  pf.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var t = podborText(), err = $('#podborErr');
+    if (!t) {
+      err.textContent = ptab === 'car' ? 'Укажите марку и модель машины.' : 'Укажите ёмкость или пусковой ток старого аккумулятора.';
+      err.hidden = false;
+      (ptab === 'car' ? $('#f-car') : $('#f-cap')).focus();
+      return;
+    }
+    err.hidden = true;
+    openChat(t);
+  });
+  renderReq();
+
+  /* ---------- мессенджеры ---------- */
+  function textFrom(a) {
+    var src = a.getAttribute('data-src');
+    if (src === 'podbor') return podborText() || DEFAULT_TEXT;
+    if (src === 'draft') return $('#chatText').value.trim() || DEFAULT_TEXT;
+    return a.getAttribute('data-text') || DEFAULT_TEXT;
+  }
+  var maxDraft = '';
+  function openMaxSheet(text) {
+    maxDraft = text; $('#maxText').textContent = text;
+    $('#maxSheet').hidden = false;
+    $('#maxSheet [data-copy]').focus();
+  }
+  function closeSheet() { $('#maxSheet').hidden = true; }
+  $('#maxCopy').addEventListener('click', function () {
+    copy(maxDraft).then(function (ok) { toast(ok ? 'Текст скопирован. Вставьте его в чат MAX' : 'Не удалось скопировать, выделите текст вручную'); });
+  });
+  function onMessenger(e, a) {
+    var ch = a.getAttribute('data-msg'), text = textFrom(a);
+    if (ch === 'wa') { a.href = waLink(text); return; }
+    if (ch === 'tg') {
+      a.href = tgLink();
+      copy(text).then(function (ok) { if (ok) toast('Текст скопирован. Вставьте его в чат Telegram'); });
+      return;
+    }
+    if (CONFIG.max) {
+      a.href = CONFIG.max;
+      copy(text).then(function (ok) { if (ok) toast('Текст скопирован. Вставьте его в чат MAX'); });
+      return;
+    }
+    e.preventDefault(); openMaxSheet(text);
+  }
+
+  /* ---------- общий обработчик кликов ---------- */
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    if (!t.closest) return;
+    var m = t.closest('a[data-msg]'); if (m) { onMessenger(e, m); return; }
+    if (t.closest('[data-open-chat]')) { openChat(); return; }
+    var dc = t.closest('[data-chat]'); if (dc) { openChat(dc.getAttribute('data-chat')); return; }
+    var ask = t.closest('[data-ask]');
+    if (ask) { openChat('Здравствуйте! Интересуют аккумуляторы: ' + ask.getAttribute('data-ask') + '. Подскажите цены и что есть в наличии.'); return; }
+    if (t.closest('[data-copy]')) {
+      copy(CONFIG.phoneDisplay).then(function (ok) { toast(ok ? 'Номер скопирован: ' + CONFIG.phoneDisplay : 'Наш номер: ' + CONFIG.phoneDisplay); });
+      return;
+    }
+    var chip = t.closest('[data-chip]');
+    if (chip) { var ta = $('#chatText'); ta.value = chip.getAttribute('data-chip'); autosize(); ta.focus(); ta.setSelectionRange(ta.value.length, ta.value.length); saveDraft(); return; }
+    if (t.closest('[data-close-sheet]') || t === $('#maxSheet')) closeSheet();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape') return;
+    if (!$('#maxSheet').hidden) return closeSheet();
+    if (!$('#inbox').hidden) return closeInbox();
+    if (!$('#chat').hidden) return closeChat();
+    if (!menu.hidden) setMenu(false);
+  });
+
+  /* ---------- чат на сайте ---------- */
+  var contact = Object.assign({ name: '', contact: '', reply: 'wa', consent: false }, store.get('akb-contact', {}));
+  var localThread = store.get('akb-thread', []).map(function (m) { if (m.status === 'sending') m.status = 'fail'; return m; });
+  var pending = [];
+  var editingWho = false;
+  var cloud = null;
+  var cloudDone; var cloudReady = new Promise(function (r) { cloudDone = r; });
+
+  function saveThread() { store.set('akb-thread', localThread.slice(-60)); }
+  function saveDraft() { store.set('akb-draft', $('#chatText').value); }
+  function autosize() { var ta = $('#chatText'); ta.style.height = 'auto'; ta.style.height = Math.min(ta.scrollHeight + 3, 140) + 'px'; }
+
+  function validContact(s) {
+    s = String(s || '').trim();
+    if (/^@?[A-Za-z][A-Za-z0-9_]{3,31}$/.test(s)) return true;
+    return s.replace(/\D/g, '').length >= 10;
+  }
+  function fmtPhone(s) {
+    s = String(s || '').trim();
+    if (/[A-Za-z@]/.test(s)) return s;
+    var d = s.replace(/\D/g, '');
+    if (d.length === 11 && (d[0] === '8' || d[0] === '7')) d = d.slice(1);
+    else if (d.length !== 10) return s;
+    return '+7 ' + d.slice(0, 3) + ' ' + d.slice(3, 6) + '-' + d.slice(6, 8) + '-' + d.slice(8);
+  }
+  function contactReady() { return validContact(contact.contact) && contact.consent; }
+  function paintWho() {
+    if (DIRECT) { $('#who').hidden = true; $('#whoSum').hidden = true; return; }
+    var ready = contactReady() && !editingWho;
+    $('#who').hidden = ready; $('#whoSum').hidden = !ready;
+    if (ready) $('#whoSumText').textContent = 'Ответим ' + REPLY[contact.reply] + ': ' + (contact.name ? contact.name + ', ' : '') + contact.contact;
+  }
+  $('#c-name').value = contact.name;
+  $('#c-contact').value = contact.contact;
+  $('#c-consent').checked = !!contact.consent;
+  var rr = $('#chatForm input[name="reply"][value="' + contact.reply + '"]'); if (rr) rr.checked = true;
+  $('#c-contact').addEventListener('blur', function (e) { e.target.value = fmtPhone(e.target.value); });
+  $('#whoEdit').addEventListener('click', function () { editingWho = true; paintWho(); $('#c-name').focus(); });
+  paintWho();
+
+  var ta0 = $('#chatText');
+  ta0.value = store.get('akb-draft', '');
+  ta0.addEventListener('input', function () { autosize(); saveDraft(); });
+  ta0.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' && !e.shiftKey && !mqMobile.matches && !e.isComposing) {
+      e.preventDefault();
+      if ($('#chatForm').requestSubmit) $('#chatForm').requestSubmit(); else $('#chatForm').dispatchEvent(new Event('submit', { cancelable: true }));
+    }
+  });
+
+  function items() {
+    var list = [];
+    var d = cloud && cloud.data;
+    if (d) {
+      (d.client || []).forEach(function (m) { list.push({ who: 'me', text: m.text, at: m.at, status: 'ok' }); });
+      (d.manager || []).forEach(function (m) { list.push({ who: 'them', text: m.text, at: m.at }); });
+    }
+    list = list.concat(localThread, pending);
+    return list.sort(function (a, b) { return a.at - b.at; });
+  }
+  function msgLink(ch, text) {
+    var names = { wa: ['W', 'WhatsApp'], tg: ['T', 'Telegram'], mx: ['M', 'MAX'] };
+    var a = el('a', 'btn btn-line btn-sm');
+    a.setAttribute('data-msg', ch); a.setAttribute('data-text', text);
+    a.href = baseHref(ch); a.target = '_blank'; a.rel = 'noopener';
+    var mk = el('span', 'mk mk-' + ch, names[ch][0]); mk.setAttribute('aria-hidden', 'true');
+    a.appendChild(mk); a.appendChild(document.createTextNode(names[ch][1]));
+    return a;
+  }
+  function bubble(m, mine, showStatus) {
+    var b = el('div', 'msg ' + (mine ? 'msg-out' : 'msg-in'));
+    if (m.status === 'fail' && mine && showStatus) b.classList.add('is-fail');
+    b.appendChild(el('div', 'msg-text', m.text));
+    var meta = (m.at ? when(m.at) : '') + (mine && showStatus ? ' · ' + STATUS[m.status || 'ok'] : '');
+    if (meta) b.appendChild(el('div', 'msg-meta', meta));
+    return b;
+  }
+  function renderChat() {
+    var body = $('#chatBody'); body.textContent = '';
+    var g = workState().open ? GREETING : GREETING + '\n\nСейчас нерабочее время. Сообщение прочитаем утром, после ' + CONFIG.hours.from + ':00.';
+    body.appendChild(bubble({ text: g }, false, false));
+    var list = items();
+    list.forEach(function (m) {
+      if (m.who === 'sys') {
+        var s = el('div', 'msg msg-sys');
+        s.appendChild(el('p', '', m.text));
+        var row = el('div', 'msg-acts');
+        ['wa', 'tg', 'mx'].forEach(function (ch) { row.appendChild(msgLink(ch, m.payload)); });
+        var call = el('a', 'btn btn-line btn-sm', 'Позвонить'); call.href = 'tel:' + CONFIG.phone;
+        row.appendChild(call);
+        s.appendChild(row); body.appendChild(s);
+      } else {
+        body.appendChild(bubble(m, m.who === 'me', true));
+      }
+    });
+    $('#chips').hidden = list.some(function (m) { return m.who === 'me'; });
+    body.scrollTop = body.scrollHeight;
+  }
+
+  function setUnread(on) { $$('.udot').forEach(function (d) { d.hidden = !on; }); }
+  function markSeen() {
+    var n = cloud && cloud.data && cloud.data.manager ? cloud.data.manager.length : 0;
+    store.set('akb-seen', n); setUnread(false);
+  }
+
+  var lastFocus = null;
+  function openChat(text) {
+    var chat = $('#chat');
+    if (chat.hidden) {
+      lastFocus = document.activeElement;
+      chat.hidden = false; $('#fab').hidden = true;
+      document.documentElement.classList.add('lock');
+    }
+    if (typeof text === 'string' && text) { $('#chatText').value = text; saveDraft(); }
+    autosize(); renderChat(); markSeen();
+    if (!mqMobile.matches) {
+      var target = $('#chatText');
+      if (!DIRECT && (!contactReady() || editingWho)) target = $('#c-name').value ? $('#c-contact') : $('#c-name');
+      target.focus();
+    }
+  }
+  function closeChat() {
+    $('#chat').hidden = true; $('#fab').hidden = false;
+    document.documentElement.classList.remove('lock');
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  $('#chatClose').addEventListener('click', closeChat);
+
+  function chatFail(msg, focusEl) {
+    var err = $('#chatErr'); err.textContent = msg; err.hidden = false;
+    if (focusEl) focusEl.focus();
+  }
+  var chain = Promise.resolve();
+  $('#chatForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    $('#chatErr').hidden = true;
+    var ta = $('#chatText'), text = ta.value.trim();
+    if (!text) return chatFail('Напишите сообщение.', ta);
+    if (!DIRECT && (!contactReady() || editingWho)) {
+      var picked = $('#chatForm input[name="reply"]:checked');
+      var c = { name: $('#c-name').value.trim(), contact: fmtPhone($('#c-contact').value), reply: picked ? picked.value : 'wa', consent: $('#c-consent').checked };
+      if (!validContact(c.contact)) return chatFail('Укажите телефон или ник в Telegram, чтобы менеджер мог ответить.', $('#c-contact'));
+      if (!c.consent) return chatFail('Отметьте согласие на обработку персональных данных.', $('#c-consent'));
+      contact = c; store.set('akb-contact', contact);
+      $('#c-contact').value = c.contact; editingWho = false; paintWho();
+    }
+    ta.value = ''; autosize(); saveDraft();
+    var m = { who: 'me', text: text.slice(0, 2000), at: Date.now(), status: 'sending' };
+    pending.push(m); renderChat();
+    chain = chain.then(function () { return deliver(m); }).catch(function () {});
+  });
+
+  function wait(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+  async function deliver(m) {
+    await cloudReady;
+    if (cloud && cloud.canWrite !== false) {
+      try {
+        try { await cloudSend(m); }
+        catch (e1) { if (e1 && e1.code === 'unavailable') { await wait(600 + Math.random() * 600); await cloudSend(m); } else throw e1; }
+        pending = pending.filter(function (x) { return x !== m; });
+        renderChat(); return;
+      } catch (e) {
+        if (e && ['invalid_argument', 'not_granted', 'revoked', 'capability_disabled', 'capability_removed'].indexOf(e.code) >= 0) cloud.canWrite = false;
+      }
+    }
+    pending = pending.filter(function (x) { return x !== m; });
+    if (DIRECT) {
+      m.status = 'pick';
+      localThread.push(m);
+      localThread.push({ who: 'sys', at: m.at + 1, payload: m.text, text: 'Выберите, куда отправить сообщение менеджеру. Текст уже готов, в мессенджере останется нажать «Отправить».' });
+      saveThread(); renderChat(); return;
+    }
+    localThread.push(m); saveThread(); renderChat();
+    if (CONFIG.endpoint) {
+      try {
+        var r = await fetch(CONFIG.endpoint, {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name: contact.name, contact: contact.contact, reply: contact.reply, text: m.text, page: location.href, time: new Date(m.at).toISOString() })
+        });
+        if (r.ok) { m.status = 'ok'; saveThread(); renderChat(); return; }
+      } catch (e) {}
+    }
+    m.status = 'fail';
+    localThread.push({
+      who: 'sys', at: m.at + 1, payload: m.text,
+      text: CONFIG.endpoint ? 'Не получилось отправить сообщение с сайта. Отправьте его в мессенджер, текст уже готов:' : 'Чат на сайте сейчас не принимает сообщения. Отправьте это сообщение в мессенджер, текст уже готов:'
+    });
+    saveThread(); renderChat();
+  }
+
+  /* ---------- хранилище заявок (работает, когда страница открыта в Claude) ---------- */
+  async function cloudSend(m) {
+    await cloud.first;
+    var prev = (cloud.data && cloud.data.client) || [];
+    var client = prev.map(function (x) { return { text: x.text, at: x.at }; }).concat({ text: m.text, at: m.at }).slice(-150);
+    var body = { name: contact.name.slice(0, 80), contact: contact.contact.slice(0, 80), reply: contact.reply, client: client, status: 'new', lastFrom: 'client', updatedAt: m.at };
+    if (cloud.data) await cloud.ref.update(body);
+    else await cloud.ref.set(Object.assign({ manager: [], createdAt: m.at }, body));
+    cloud.data = Object.assign({}, cloud.data || { manager: [] }, body);
+  }
+  function onCloudData() {
+    var n = cloud.data && cloud.data.manager ? cloud.data.manager.length : 0;
+    var seen = store.get('akb-seen', 0);
+    if (!$('#chat').hidden) { if (n !== seen) store.set('akb-seen', n); renderChat(); }
+    else if (n > seen) { setUnread(true); if (cloud.started) toast('Менеджер ответил в чате'); }
+    else if (n < seen) store.set('akb-seen', n);
+    cloud.started = true;
+  }
+  (async function initCloud() {
+    try {
+      var c = window.claude;
+      if (!c || typeof c.use !== 'function') return;
+      var caps = await Promise.all([c.use('db'), c.use('user')]);
+      var db = caps[0], user = caps[1];
+      if (!db || !user) return;
+      var uid = await user.id();
+      if (!uid) return;
+      var canW = await user.can('data.write');
+      var firstDone; var first = new Promise(function (r) { firstDone = r; });
+      cloud = { db: db, user: user, uid: uid, ref: db.doc('leads/' + uid), data: null, first: first, canWrite: canW === false ? false : null, started: false };
+      cloud.ref.onSnapshot(function (snap) {
+        cloud.data = snap.exists ? snap.data() : null; firstDone(); onCloudData();
+      }, function () { firstDone(); });
+      setTimeout(firstDone, 4000);
+      if (await user.canEdit()) startInbox();
+    } catch (e) { cloud = null; }
+    finally { cloudDone(); }
+  })();
+
+  /* ---------- заявки для владельца ---------- */
+  var leads = [], openId = null, staffChain = Promise.resolve();
+  function normPhone(s) {
+    var d = String(s || '').replace(/\D/g, '');
+    if (d.length === 11 && d[0] === '8') d = '7' + d.slice(1);
+    if (d.length === 10) d = '7' + d;
+    return d.length >= 11 ? d : '';
+  }
+  function startInbox() {
+    $('#inboxBtn').hidden = false;
+    cloud.db.collection('leads').orderBy('updatedAt', 'desc').limit(300).onSnapshot(function (snap) {
+      leads = snap.docs.filter(function (d) { return d.exists; }).map(function (d) { return { id: d.id, d: d.data() || {} }; });
+      renderInbox();
+    }, function () { $('#inboxBtn').hidden = true; });
+  }
+  function lastOf(d) {
+    var all = (d.client || []).map(function (m) { return { text: m.text, at: m.at, mgr: false }; })
+      .concat((d.manager || []).map(function (m) { return { text: m.text, at: m.at, mgr: true }; }));
+    all.sort(function (a, b) { return a.at - b.at; });
+    return { all: all, last: all[all.length - 1] };
+  }
+  function pill(status) { return el('span', 'pill pill-' + (status || 'new'), LEAD_STATUS[status] || LEAD_STATUS['new']); }
+  function renderInbox() {
+    var nNew = leads.filter(function (l) { return (l.d.status || 'new') === 'new'; }).length;
+    var badge = $('#inboxBadge'); badge.textContent = String(nNew); badge.hidden = nNew === 0;
+    if ($('#inbox').hidden) return;
+    if (openId) return renderThread();
+    $('#thread').hidden = true;
+    var list = $('#inboxList'); list.hidden = false; list.textContent = '';
+    if (!leads.length) {
+      var em = el('div', 'inbox-empty');
+      em.appendChild(el('p', '', 'Заявок пока нет.'));
+      em.appendChild(el('p', '', 'Сюда попадают сообщения из чата на сайте. Чтобы проверить, откройте чат и отправьте тестовое сообщение.'));
+      list.appendChild(em); return;
+    }
+    leads.forEach(function (l) {
+      var x = lastOf(l.d);
+      var row = el('button', 'lrow'); row.type = 'button'; row.setAttribute('data-lead', l.id);
+      var top = el('span', 'lrow-top'); top.appendChild(el('b', '', l.d.name || 'Без имени')); top.appendChild(pill(l.d.status));
+      row.appendChild(top);
+      row.appendChild(el('span', 'mono', (l.d.contact || '') + ' · ответить ' + (REPLY[l.d.reply] || '') + (l.d.updatedAt ? ' · ' + when(l.d.updatedAt) : '')));
+      if (x.last) row.appendChild(el('span', 'lrow-last', (x.last.mgr ? 'Вы: ' : '') + x.last.text));
+      list.appendChild(row);
+    });
+  }
+  function renderThread() {
+    var l = leads.filter(function (x) { return x.id === openId; })[0];
+    if (!l) { openId = null; return renderInbox(); }
+    $('#inboxList').hidden = true; $('#thread').hidden = false;
+    $('#tName').textContent = l.d.name || 'Без имени';
+    $('#tContact').textContent = l.d.contact || '';
+    $('#tReply').textContent = 'Просит ответить ' + (REPLY[l.d.reply] || '');
+    if (document.activeElement !== $('#tStatus')) $('#tStatus').value = l.d.status || 'new';
+    var acts = $('#tActs'); acts.textContent = '';
+    var ph = normPhone(l.d.contact), handle = /^@?[A-Za-z][A-Za-z0-9_]{3,31}$/.test(String(l.d.contact || '').trim()) ? String(l.d.contact).trim().replace(/^@/, '') : '';
+    function link(label, href) { var a = el('a', 'btn btn-line btn-sm', label); a.href = href; a.target = '_blank'; a.rel = 'noopener'; acts.appendChild(a); }
+    if (ph) { link('WhatsApp', 'https://wa.me/' + ph); link('Telegram', 'https://t.me/+' + ph); }
+    else if (handle) link('Telegram', 'https://t.me/' + handle);
+    var cb = el('button', 'btn btn-line btn-sm', 'Скопировать контакт'); cb.type = 'button';
+    cb.addEventListener('click', function () { copy(l.d.contact || '').then(function (ok) { toast(ok ? 'Контакт скопирован' : 'Не удалось скопировать'); }); });
+    acts.appendChild(cb);
+    var body = $('#tBody'); body.textContent = '';
+    lastOf(l.d).all.forEach(function (m) { body.appendChild(bubble(m, m.mgr, false)); });
+    body.scrollTop = body.scrollHeight;
+  }
+  function openInbox() { $('#inbox').hidden = false; document.documentElement.classList.add('lock'); renderInbox(); $('#inboxClose').focus(); }
+  function closeInbox() { $('#inbox').hidden = true; if ($('#chat').hidden) document.documentElement.classList.remove('lock'); $('#inboxBtn').focus(); }
+  $('#inboxBtn').addEventListener('click', openInbox);
+  $('#inboxClose').addEventListener('click', closeInbox);
+  $('#inboxList').addEventListener('click', function (e) { var r = e.target.closest('[data-lead]'); if (r) { openId = r.getAttribute('data-lead'); renderThread(); $('#tText').focus(); } });
+  $('#threadBack').addEventListener('click', function () { openId = null; renderInbox(); });
+  $('#tStatus').addEventListener('change', function (e) {
+    var id = openId, val = e.target.value;
+    staffChain = staffChain.then(function () {
+      return cloud.db.doc('leads/' + id).update({ status: val }).catch(function () { toast('Статус не сохранился, попробуйте ещё раз'); });
+    });
+  });
+  $('#tText').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' && !e.shiftKey && !mqMobile.matches && !e.isComposing) { e.preventDefault(); $('#tForm').requestSubmit ? $('#tForm').requestSubmit() : $('#tForm').dispatchEvent(new Event('submit', { cancelable: true })); }
+  });
+  $('#tForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var ta = $('#tText'), text = ta.value.trim(), id = openId;
+    if (!text || !id) return;
+    ta.value = '';
+    staffChain = staffChain.then(async function () {
+      var l = leads.filter(function (x) { return x.id === id; })[0];
+      var prev = (l && l.d.manager) || [];
+      var manager = prev.map(function (x) { return { text: x.text, at: x.at }; }).concat({ text: text, at: Date.now() }).slice(-150);
+      var st = l && l.d.status && l.d.status !== 'new' ? l.d.status : 'work';
+      try { await cloud.db.doc('leads/' + id).update({ manager: manager, status: st, lastFrom: 'manager', updatedAt: Date.now() }); }
+      catch (err) { ta.value = text; toast('Ответ не сохранился. Проверьте соединение и отправьте ещё раз'); }
+    });
+  });
+
+  if (location.hash === '#chat') openChat();
+})();
+</script>
+</body>
+</html>
