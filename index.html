@@ -7,12 +7,12 @@
 <meta name="theme-color" content="#161C21" media="(prefers-color-scheme: dark)">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ru_RU">
-<meta property="og:title" content="Аккумуляторы Казани">
+<meta property="og:title" content="Аккумуляторы Усады">
 <meta property="og:description" content="Аккумуляторы для легковых, грузовых, мото, лодок и ИБП в Усадах, Лаишевский район. Подбор по машине, выезд и прикурка, приём старых аккумуляторов со скидкой на новый.">
 <meta name="format-detection" content="telephone=no">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20x%3D%223%22%20y%3D%229%22%20width%3D%2226%22%20height%3D%2218%22%20rx%3D%223%22%20fill%3D%22%23FFFFFF%22%20stroke%3D%22%23141A1F%22%20stroke-width%3D%223%22/%3E%3Crect%20x%3D%227%22%20y%3D%224%22%20width%3D%226%22%20height%3D%224%22%20rx%3D%221%22%20fill%3D%22%23141A1F%22/%3E%3Crect%20x%3D%2219%22%20y%3D%224%22%20width%3D%226%22%20height%3D%224%22%20rx%3D%221%22%20fill%3D%22%23C42219%22/%3E%3C/svg%3E">
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}img{max-width:100%}</style>
-<title>Аккумуляторы Казани</title>
+<title>Аккумуляторы Усады</title>
 <meta name="description" content="Аккумуляторы для легковых, грузовых, мото, лодок и ИБП. Усады, Лаишевский район. Подбор по марке машины, установка, выезд и прикурка автомобиля, приём старых аккумуляторов со скидкой на новый.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -157,6 +157,14 @@ svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stro
 .need{margin:0;padding:12px 0 0;border-top:1.5px dashed var(--line-2);list-style:none;display:grid;gap:4px;font:500 13.5px/1.5 var(--f-mono)}
 .need li::before{content:"+ ";color:var(--plus)}
 .svc .acts{margin-top:4px}
+.svc .cta{display:grid;gap:10px;margin-top:4px}
+.svc .cta .acts{margin-top:0}
+.msgs{display:flex;flex-wrap:wrap;gap:8px}
+@media (max-width:560px){
+  .svc .cta .acts{display:grid;grid-template-columns:minmax(0,1fr);gap:8px}
+  .msgs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+  .msgs .btn{flex-direction:column;gap:6px;min-height:64px;padding:8px 4px;font-size:13.5px}
+}
 .svc-foot{margin-top:18px;color:var(--ink-2);font-size:15px;max-width:70ch}
 
 /* podbor label */
@@ -375,9 +383,9 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
 
 <header class="head">
   <div class="wrap head-bar">
-    <a class="logo" href="#top" aria-label="Аккумуляторы Казани, на главную">
+    <a class="logo" href="#top" aria-label="Аккумуляторы Усады, на главную">
       <span class="glyph" aria-hidden="true"></span>
-      <span class="logo-text">Аккумуляторы <b>Казани</b></span>
+      <span class="logo-text">Аккумуляторы <b>Усады</b></span>
     </a>
     <nav class="nav" aria-label="Разделы">
       <a href="#podbor">Подбор</a>
@@ -588,25 +596,37 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
             <li>марка и модель машины</li>
             <li>номер для связи</li>
           </ul>
-          <div class="acts">
-            <button class="btn btn-plus" type="button" data-chat="Здравствуйте! Нужна прикурка, машина не заводится.&#10;Адрес: &#10;Машина: "><svg class="i"><use href="#i-chat"/></svg>Вызвать прикурку</button>
-            <a class="btn btn-line" data-msg="wa" data-text="Здравствуйте! Нужна прикурка, машина не заводится. Отправляю геопозицию." href="https://wa.me/79377745444" target="_blank" rel="noopener"><span class="mk mk-wa" aria-hidden="true">W</span>WhatsApp</a>
-            <a class="btn btn-line" data-tel href="tel:+79377745444"><svg class="i"><use href="#i-phone"/></svg>Позвонить</a>
+          <div class="cta">
+            <div class="acts">
+              <button class="btn btn-plus" type="button" data-chat="Здравствуйте! Нужна прикурка, машина не заводится.&#10;Адрес: &#10;Машина: "><svg class="i"><use href="#i-chat"/></svg>Вызвать прикурку</button>
+              <a class="btn btn-line" data-tel href="tel:+79377745444"><svg class="i"><use href="#i-phone"/></svg>Позвонить</a>
+            </div>
+            <div class="msgs" aria-label="Написать в мессенджер">
+              <a class="btn btn-line" data-msg="wa" data-text="Здравствуйте! Нужна прикурка, машина не заводится. Отправляю геопозицию." href="https://wa.me/79377745444" target="_blank" rel="noopener"><span class="mk mk-wa" aria-hidden="true">W</span>WhatsApp</a>
+              <a class="btn btn-line" data-msg="tg" data-text="Здравствуйте! Нужна прикурка, машина не заводится. Отправляю геопозицию." href="https://t.me/+79377745444" target="_blank" rel="noopener"><span class="mk mk-tg" aria-hidden="true">T</span>Telegram</a>
+              <a class="btn btn-line" data-msg="mx" data-text="Здравствуйте! Нужна прикурка, машина не заводится. Отправляю геопозицию." href="https://max.ru/" target="_blank" rel="noopener"><span class="mk mk-mx" aria-hidden="true">M</span>MAX</a>
+            </div>
           </div>
         </article>
         <article>
           <span class="k">Некогда ехать к нам</span>
-          <h3>Выезд с установкой</h3>
+          <h3>Установка с выездом</h3>
           <p>Подберём аккумулятор по вашей машине, привезём, снимем старый и установим новый на месте. Старый заберём и сделаем за него скидку.</p>
           <ul class="need" aria-label="Что сообщить">
             <li>марка, модель и год машины</li>
             <li>адрес и удобное время</li>
             <li>номер для связи</li>
           </ul>
-          <div class="acts">
-            <button class="btn btn-plus" type="button" data-chat="Здравствуйте! Нужен выезд с установкой аккумулятора.&#10;Машина: &#10;Адрес: &#10;Удобное время: "><svg class="i"><use href="#i-chat"/></svg>Заказать выезд</button>
-            <a class="btn btn-line" data-msg="wa" data-text="Здравствуйте! Нужен выезд с установкой аккумулятора." href="https://wa.me/79377745444" target="_blank" rel="noopener"><span class="mk mk-wa" aria-hidden="true">W</span>WhatsApp</a>
-            <a class="btn btn-line" data-tel href="tel:+79377745444"><svg class="i"><use href="#i-phone"/></svg>Позвонить</a>
+          <div class="cta">
+            <div class="acts">
+              <button class="btn btn-plus" type="button" data-chat="Здравствуйте! Нужна установка аккумулятора с выездом.&#10;Машина: &#10;Адрес: &#10;Удобное время: "><svg class="i"><use href="#i-chat"/></svg>Заказать установку</button>
+              <a class="btn btn-line" data-tel href="tel:+79377745444"><svg class="i"><use href="#i-phone"/></svg>Позвонить</a>
+            </div>
+            <div class="msgs" aria-label="Написать в мессенджер">
+              <a class="btn btn-line" data-msg="wa" data-text="Здравствуйте! Нужна установка аккумулятора с выездом." href="https://wa.me/79377745444" target="_blank" rel="noopener"><span class="mk mk-wa" aria-hidden="true">W</span>WhatsApp</a>
+              <a class="btn btn-line" data-msg="tg" data-text="Здравствуйте! Нужна установка аккумулятора с выездом." href="https://t.me/+79377745444" target="_blank" rel="noopener"><span class="mk mk-tg" aria-hidden="true">T</span>Telegram</a>
+              <a class="btn btn-line" data-msg="mx" data-text="Здравствуйте! Нужна установка аккумулятора с выездом." href="https://max.ru/" target="_blank" rel="noopener"><span class="mk mk-mx" aria-hidden="true">M</span>MAX</a>
+            </div>
           </div>
         </article>
       </div>
@@ -629,9 +649,16 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
             <li>ёмкость старого аккумулятора, Ач</li>
             <li>какой нужен новый или марка машины</li>
           </ul>
-          <div class="acts">
-            <button class="btn btn-plus" type="button" data-chat="Здравствуйте! Хочу сдать старый аккумулятор и купить новый. Какая будет скидка?&#10;Старый аккумулятор, Ач: &#10;Машина: "><svg class="i"><use href="#i-chat"/></svg>Узнать скидку</button>
-            <a class="btn btn-line" data-msg="wa" data-text="Здравствуйте! Хочу сдать старый аккумулятор и купить новый. Какая будет скидка?" href="https://wa.me/79377745444" target="_blank" rel="noopener"><span class="mk mk-wa" aria-hidden="true">W</span>WhatsApp</a>
+          <div class="cta">
+            <div class="acts">
+              <button class="btn btn-plus" type="button" data-chat="Здравствуйте! Хочу сдать старый аккумулятор и купить новый. Какая будет скидка?&#10;Старый аккумулятор, Ач: &#10;Машина: "><svg class="i"><use href="#i-chat"/></svg>Узнать скидку</button>
+              <a class="btn btn-line" data-tel href="tel:+79377745444"><svg class="i"><use href="#i-phone"/></svg>Позвонить</a>
+            </div>
+            <div class="msgs" aria-label="Написать в мессенджер">
+              <a class="btn btn-line" data-msg="wa" data-text="Здравствуйте! Хочу сдать старый аккумулятор и купить новый. Какая будет скидка?" href="https://wa.me/79377745444" target="_blank" rel="noopener"><span class="mk mk-wa" aria-hidden="true">W</span>WhatsApp</a>
+              <a class="btn btn-line" data-msg="tg" data-text="Здравствуйте! Хочу сдать старый аккумулятор и купить новый. Какая будет скидка?" href="https://t.me/+79377745444" target="_blank" rel="noopener"><span class="mk mk-tg" aria-hidden="true">T</span>Telegram</a>
+              <a class="btn btn-line" data-msg="mx" data-text="Здравствуйте! Хочу сдать старый аккумулятор и купить новый. Какая будет скидка?" href="https://max.ru/" target="_blank" rel="noopener"><span class="mk mk-mx" aria-hidden="true">M</span>MAX</a>
+            </div>
           </div>
         </article>
         <article>
@@ -643,9 +670,16 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
             <li>мото и лодочные</li>
             <li>от ИБП, котлов и сигнализаций</li>
           </ul>
-          <div class="acts">
-            <button class="btn btn-plus" type="button" data-chat="Здравствуйте! Хочу сдать старый аккумулятор.&#10;Что сдаю: &#10;Количество: "><svg class="i"><use href="#i-chat"/></svg>Сдать аккумулятор</button>
-            <a class="btn btn-line" data-msg="wa" data-text="Здравствуйте! Хочу сдать старый аккумулятор." href="https://wa.me/79377745444" target="_blank" rel="noopener"><span class="mk mk-wa" aria-hidden="true">W</span>WhatsApp</a>
+          <div class="cta">
+            <div class="acts">
+              <button class="btn btn-plus" type="button" data-chat="Здравствуйте! Хочу сдать старый аккумулятор.&#10;Что сдаю: &#10;Количество: "><svg class="i"><use href="#i-chat"/></svg>Сдать аккумулятор</button>
+              <a class="btn btn-line" data-tel href="tel:+79377745444"><svg class="i"><use href="#i-phone"/></svg>Позвонить</a>
+            </div>
+            <div class="msgs" aria-label="Написать в мессенджер">
+              <a class="btn btn-line" data-msg="wa" data-text="Здравствуйте! Хочу сдать старый аккумулятор." href="https://wa.me/79377745444" target="_blank" rel="noopener"><span class="mk mk-wa" aria-hidden="true">W</span>WhatsApp</a>
+              <a class="btn btn-line" data-msg="tg" data-text="Здравствуйте! Хочу сдать старый аккумулятор." href="https://t.me/+79377745444" target="_blank" rel="noopener"><span class="mk mk-tg" aria-hidden="true">T</span>Telegram</a>
+              <a class="btn btn-line" data-msg="mx" data-text="Здравствуйте! Хочу сдать старый аккумулятор." href="https://max.ru/" target="_blank" rel="noopener"><span class="mk mk-mx" aria-hidden="true">M</span>MAX</a>
+            </div>
           </div>
         </article>
       </div>
@@ -733,7 +767,7 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
 
 <footer class="foot">
   <div class="wrap">
-    <p>© <span id="year">2026</span> Аккумуляторы Казани. Информация на сайте не является публичной офертой. Цены и наличие уточняйте у менеджера.</p>
+    <p>© <span id="year">2026</span> Аккумуляторы Усады. Информация на сайте не является публичной офертой. Цены и наличие уточняйте у менеджера.</p>
     <p><span data-cfg="addressFull">Лаишевский район, Усады, ул. Дорожная, 3</span> · <span class="mono" data-cfg="phoneDisplay">+7 937 774-54-44</span></p>
   </div>
 </footer>
@@ -756,7 +790,7 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
   <div class="chat-body" id="chatBody" aria-live="polite"></div>
   <div class="chips" id="chips">
     <button class="chip" type="button" data-chip="Здравствуйте! Нужна прикурка, машина не заводится.&#10;Адрес: ">Нужна прикурка</button>
-    <button class="chip" type="button" data-chip="Здравствуйте! Нужен выезд с установкой аккумулятора.&#10;Машина: &#10;Адрес: ">Выезд с установкой</button>
+    <button class="chip" type="button" data-chip="Здравствуйте! Нужна установка аккумулятора с выездом.&#10;Машина: &#10;Адрес: ">Установка с выездом</button>
     <button class="chip" type="button" data-chip="Здравствуйте! Подберите аккумулятор для ">Подобрать по машине</button>
     <button class="chip" type="button" data-chip="Здравствуйте! Есть ли в наличии аккумулятор ">Есть в наличии?</button>
     <button class="chip" type="button" data-chip="Здравствуйте! Хочу сдать старый аккумулятор и купить новый. Какая будет скидка?">Скидка за старый</button>
