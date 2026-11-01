@@ -160,6 +160,9 @@ svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stro
 .need{margin:0;padding:12px 0 0;border-top:1.5px dashed var(--line-2);list-style:none;display:grid;gap:4px;font:500 13.5px/1.5 var(--f-mono)}
 .need li::before{content:"+ ";color:var(--plus)}
 .svc .acts{margin-top:4px}
+.price{justify-self:start;font:500 15px/1.2 var(--f-mono);font-variant-numeric:tabular-nums;padding:7px 10px;border:1.5px solid var(--ink);border-radius:3px}
+.banner{background:var(--plus);color:var(--on-plus)}
+.banner p{padding-block:10px;font-weight:600;font-size:15px;line-height:1.4;max-width:90ch}
 .svc .cta{display:grid;gap:10px;margin-top:4px}
 .svc .cta .acts{margin-top:0}
 .msgs{display:flex;flex-wrap:wrap;gap:8px}
@@ -460,14 +463,16 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
   </div>
 </header>
 
+<div class="banner" id="banner" hidden><div class="wrap"><p id="bannerText"></p></div></div>
+
 <main id="top">
   <section class="hero">
     <div class="wrap hero-grid">
       <div>
         <p class="eyebrow"><span>Магазин аккумуляторов</span><span>Усады · Лаишевский район</span><span class="state" data-state><i></i><span data-state-text></span></span></p>
-        <h1 class="title">Подберём аккумулятор под вашу машину</h1>
+        <h1 class="title" id="heroTitle">Подберём аккумулятор под вашу машину</h1>
         <div class="cells" aria-label="Что есть в продаже"><span>12 В</span><span>4–225 Ач</span><span>R+ и L+</span><span>Евро и JIS</span></div>
-        <p class="lead">Наличие и цены меняются каждый день, поэтому их сообщает менеджер. Напишите марку, модель и год машины или пришлите фото наклейки со старого аккумулятора. Ответим с подходящими вариантами и ценами.</p>
+        <p class="lead" id="heroLead">Наличие и цены меняются каждый день, поэтому их сообщает менеджер. Напишите марку, модель и год машины или пришлите фото наклейки со старого аккумулятора. Ответим с подходящими вариантами и ценами.</p>
         <div class="acts">
           <button class="btn btn-plus" type="button" data-open-chat><svg class="i"><use href="#i-chat"/></svg>Написать на сайте</button>
           <a class="btn btn-line" data-msg="wa" href="https://wa.me/79377745444" target="_blank" rel="noopener"><span class="mk mk-wa" aria-hidden="true">W</span>WhatsApp</a>
@@ -477,7 +482,7 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
         <p class="call-line">Или позвоните: <a class="big mono" data-tel data-cfg="phoneDisplay" href="tel:+79377745444">+7 937 774-54-44</a><button class="linkbtn" type="button" data-copy="phone">скопировать номер</button></p>
         <div class="notes">
           <p class="hero-note"><span class="tagc">Выезд</span><b>Машина не заводится?</b> Приедем, прикурим или поставим новый аккумулятор на месте. <a href="#vyezd">Вызвать выезд</a></p>
-          <p class="hero-note"><span class="tagc">Скидка</span><b>Сдайте старый аккумулятор</b> и получите скидку на новый. <a href="#priem">Подробнее</a></p>
+          <p class="hero-note"><span class="tagc">Скидка</span><b>Сдайте старый аккумулятор</b> и получите скидку<span id="discHero"></span> на новый. <a href="#priem">Подробнее</a></p>
         </div>
       </div>
 
@@ -577,7 +582,7 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
         <h2 class="h2">Что продаём</h2>
         <p>Карточки товаров появятся позже. Пока нажмите «Цена и наличие» в нужной строке, и менеджер пришлёт актуальные варианты.</p>
       </div>
-      <ul class="cat">
+      <ul class="cat" id="catList">
         <li>
           <div><h3>Легковые</h3><p>Европейский стандарт корпуса и клемм. Lada, Renault, Volkswagen, Skoda и большинство машин российской сборки.</p></div>
           <div class="spec"><span>45–100 Ач</span><span>400–900 А · R+ / L+</span></div>
@@ -627,6 +632,7 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
         <article>
           <span class="k">Машина не заводится</span>
           <h3>Прикурка автомобиля</h3>
+          <p class="price" data-price="prikurka" hidden></p>
           <p>Сел аккумулятор после мороза или забытых фар. Приедем и запустим двигатель, проверим заряд аккумулятора и подскажем, нужна ли замена.</p>
           <ul class="need" aria-label="Что сообщить">
             <li>адрес или геопозиция</li>
@@ -648,6 +654,7 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
         <article>
           <span class="k">Некогда ехать к нам</span>
           <h3>Установка с выездом</h3>
+          <p class="price" data-price="ustanovka" hidden></p>
           <p>Подберём аккумулятор по вашей машине, привезём, снимем старый и установим новый на месте. Старый заберём и сделаем за него скидку.</p>
           <ul class="need" aria-label="Что сообщить">
             <li>марка, модель и год машины</li>
@@ -681,6 +688,7 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
         <article>
           <span class="k">При покупке нового</span>
           <h3>Скидка за старый аккумулятор</h3>
+          <p class="price" data-price="discount" hidden></p>
           <p>Сдаёте старый аккумулятор и покупаете новый у нас, мы делаем скидку на новый. Размер скидки менеджер назовёт сразу.</p>
           <ul class="need" aria-label="Что сообщить">
             <li>ёмкость старого аккумулятора, Ач</li>
@@ -701,6 +709,7 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
         <article>
           <span class="k">Без покупки</span>
           <h3>Сдать старый аккумулятор</h3>
+          <p class="price" data-price="priem" hidden></p>
           <p>Принимаем отработанные свинцово-кислотные аккумуляторы любых марок, в том числе несколько штук сразу. Условия приёма уточните у менеджера.</p>
           <ul class="need" aria-label="Что принимаем">
             <li>легковые и грузовые</li>
@@ -810,16 +819,16 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
         <div>
           <h3>Как нас найти</h3>
           <p class="find-addr" data-cfg="addressFull">Лаишевский район, Усады, ул. Дорожная, 3</p>
-          <ul class="find-list">
+          <ul class="find-list" id="findList">
             <li><span>Ищите четырёхэтажный дом из светлого кирпича, его видно издалека.</span></li>
             <li><span>Перед домом стоит ряд тёмно-синих павильонов со стеклянными витринами. На павильонах вывески «Аренда инструмента» и «Kazan тандыр».</span></li>
             <li><span>В конце ряда ворота со шлагбаумом.</span></li>
             <li><span>Машину можно оставить на площадке перед павильонами.</span></li>
-            <li><span>Не можете найти? Позвоните по номеру <a class="mono" data-tel data-cfg="phoneDisplay" href="tel:+79377745444">+7 937 774-54-44</a>, подскажем дорогу.</span></li>
+            <li id="findCall"><span>Не можете найти? Позвоните по номеру <a class="mono" data-tel data-cfg="phoneDisplay" href="tel:+79377745444">+7 937 774-54-44</a>, подскажем дорогу.</span></li>
           </ul>
           <div class="acts" style="margin-top:20px"><a class="btn btn-plus" data-map="route" href="https://yandex.ru/maps/" target="_blank" rel="noopener"><svg class="i"><use href="#i-send"/></svg>Построить маршрут</a></div>
         </div>
-        <div class="gal" aria-label="Фото места">
+        <div class="gal" id="gal" aria-label="Фото места">
           <button class="ph ph-wide" type="button" data-full="img/proezd-panorama.webp" data-cap="Вид с площадки: слева ряд павильонов, в конце ряда ворота со шлагбаумом"><img src="img/proezd-panorama-s.webp" width="1200" height="252" loading="lazy" decoding="async" alt="Панорама: ряд тёмно-синих павильонов перед кирпичным домом, ворота и дорога"></button>
           <button class="ph" type="button" data-full="img/proezd-fasad.webp" data-cap="Павильоны перед кирпичным домом"><img src="img/proezd-fasad-s.webp" width="760" height="570" loading="lazy" decoding="async" alt="Тёмно-синие павильоны со стеклянными витринами перед четырёхэтажным кирпичным домом"></button>
           <button class="ph ph-tall" type="button" data-full="img/proezd-ryad.webp" data-cap="Ряд павильонов, вывеска «Аренда инструмента»"><img src="img/proezd-ryad-s.webp" width="570" height="760" loading="lazy" decoding="async" alt="Ряд павильонов с вывеской «Аренда инструмента» и площадка перед ними"></button>
@@ -897,14 +906,13 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
 <div class="sheet" id="maxSheet" hidden>
   <div class="sheet-card" role="dialog" aria-labelledby="maxTitle">
     <div class="bandhead"><div><b id="maxTitle">Написать в MAX</b></div><button class="icon-btn" type="button" data-close-sheet aria-label="Закрыть"><svg class="i"><use href="#i-x"/></svg></button></div>
-    <p>Найдите нас в MAX по номеру телефона и отправьте сообщение.</p>
+    <p>Откройте приложение MAX, нажмите на поиск и вставьте наш номер. Затем вставьте текст сообщения и отправьте.</p>
     <div class="sheet-num"><span class="mono" data-cfg="phoneDisplay">+7 937 774-54-44</span><button class="btn btn-line btn-sm" type="button" data-copy="phone"><svg class="i"><use href="#i-copy"/></svg>Скопировать номер</button></div>
     <div>
       <p class="lbl">Текст сообщения</p>
       <pre id="maxText"></pre>
       <button class="btn btn-line btn-sm" type="button" id="maxCopy"><svg class="i"><use href="#i-copy"/></svg>Скопировать текст</button>
     </div>
-    <a class="btn btn-plus btn-block" href="https://max.ru/" target="_blank" rel="noopener">Открыть MAX</a>
   </div>
 </div>
 
@@ -961,8 +969,8 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
     whatsapp: '79377745444',      // номер для WhatsApp, только цифры
     telegram: '+79377745444',     // ник без @ (например akb_kazan) или номер с «+»
     max: '',                      // ссылка на профиль MAX: Профиль → Пригласить друзей → Скопировать ссылку
-    hours: { from: 9, to: 19 },   // часы работы для отметки «сейчас работаем»
-    hoursLabel: 'Ежедневно, 9:00–19:00',
+    hours: { from: '09:00', to: '19:00', days: [1, 2, 3, 4, 5, 6, 7] }, // часы и рабочие дни (1 = пн)
+    hoursLabel: '',               // своя подпись режима работы; пусто = собрать из часов и дней
     tz: 'Europe/Moscow',
     addressShort: 'Усады, ул. Дорожная, 3',
     addressRegion: 'Лаишевский район, Республика Татарстан',
@@ -970,8 +978,11 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
     mapQuery: 'Татарстан, Лаишевский район, Усады, Дорожная улица, 3',
     mapCoords: '',                // широта,долгота точки на карте, например '55.701234,49.212345': метка встанет точно
     yandexOrg: '',                // ссылка на карточку магазина в Яндекс Картах, если она есть
-    endpoint: ''                  // адрес обработчика заявок на вашем хостинге (POST, JSON)
+    endpoint: '',                 // адрес обработчика уведомлений (notify/README.md)
+    banner: { on: false, text: '' },
+    hero: null, services: {}, catalog: null, find: null, photos: null
   };
+  /* Настройки из админки (config.json) накладываются поверх этих значений при загрузке страницы */
   /* =================================================================== */
 
   var DEFAULT_TEXT = 'Здравствуйте! Хочу подобрать аккумулятор.';
@@ -979,7 +990,7 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
   var REPLY = { call: 'звонком', wa: 'в WhatsApp', tg: 'в Telegram', mx: 'в MAX' };
   var STATUS = { sending: 'отправляется…', ok: 'доставлено', fail: 'не отправлено', pick: 'выберите, куда отправить' };
   /* Без своего обработчика заявок чат на сайте готовит сообщение и отправляет его через мессенджер или звонок */
-  var DIRECT = !CONFIG.endpoint && !(window.claude && typeof window.claude.use === 'function');
+  function isDirect() { return !CONFIG.endpoint && !(window.claude && typeof window.claude.use === 'function'); }
   var LEAD_STATUS = { 'new': 'Новая', work: 'В работе', done: 'Закрыта' };
 
   function $(s, r) { return (r || document).querySelector(s); }
@@ -998,9 +1009,40 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
   }
 
   /* ---------- настройки → страница ---------- */
-  $$('[data-cfg]').forEach(function (n) { var v = CONFIG[n.getAttribute('data-cfg')]; if (typeof v === 'string' && v) n.textContent = v; });
-  $$('[data-tel]').forEach(function (a) { a.href = 'tel:' + CONFIG.phone; });
-  (function maps() {
+  var DAY = ['', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
+  function mins(v) {
+    if (typeof v === 'number') return v * 60;
+    var m = /^(\d{1,2}):(\d{2})$/.exec(String(v || '').trim());
+    return m ? (+m[1]) * 60 + (+m[2]) : 0;
+  }
+  function hm(v) { var t = mins(v); return Math.floor(t / 60) + ':' + ('0' + (t % 60)).slice(-2); }
+  function workDays() {
+    var d = (CONFIG.hours.days || []).map(Number).filter(function (x) { return x >= 1 && x <= 7; });
+    return d.length ? d.sort() : [1, 2, 3, 4, 5, 6, 7];
+  }
+  function hoursLabel() {
+    if (CONFIG.hoursLabel) return CONFIG.hoursLabel;
+    var d = workDays(), parts = [], i = 0;
+    while (i < d.length) {
+      var j = i; while (j + 1 < d.length && d[j + 1] === d[j] + 1) j++;
+      parts.push(j - i >= 2 ? DAY[d[i]] + '–' + DAY[d[j]] : d.slice(i, j + 1).map(function (x) { return DAY[x]; }).join(', '));
+      i = j + 1;
+    }
+    return (d.length === 7 ? 'Ежедневно' : parts.join(', ')) + ', ' + hm(CONFIG.hours.from) + '–' + hm(CONFIG.hours.to);
+  }
+  function digitsRu(v) {
+    var d = String(v || '').replace(/\D/g, '');
+    if (d.length === 11 && d.charAt(0) === '8') d = '7' + d.slice(1);
+    if (d.length === 10) d = '7' + d;
+    return d.length === 11 ? d : '';
+  }
+  function waLink(t) { return 'https://wa.me/' + CONFIG.whatsapp + (t ? '?text=' + encodeURIComponent(t) : ''); }
+  function tgLink() { return 'https://t.me/' + CONFIG.telegram.replace(/^@/, ''); }
+  function mxLink() { return CONFIG.max || 'https://max.ru/'; }
+  function baseHref(ch) { return ch === 'wa' ? waLink('') : ch === 'tg' ? tgLink() : mxLink(); }
+  function safeUrl(u) { u = String(u || ''); return /^(https:\/\/|img\/)[^\s"'<>]+$/.test(u) ? u : ''; }
+
+  function applyMaps() {
     var q = encodeURIComponent(CONFIG.mapQuery);
     var c = String(CONFIG.mapCoords || '').split(',').map(function (x) { return parseFloat(x); });
     var has = c.length === 2 && isFinite(c[0]) && isFinite(c[1]);
@@ -1014,14 +1056,100 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
     $$('a[data-map]').forEach(function (a) { a.href = U[a.getAttribute('data-map')] || U.yandex; });
     var mf = $('#mapFrame');
     if (mf && mf.getAttribute('src') !== U.widget) mf.src = U.widget;
-  })();
-  $('#year').textContent = String(new Date().getFullYear());
+  }
 
-  function waLink(t) { return 'https://wa.me/' + CONFIG.whatsapp + (t ? '?text=' + encodeURIComponent(t) : ''); }
-  function tgLink() { return 'https://t.me/' + CONFIG.telegram.replace(/^@/, ''); }
-  function mxLink() { return CONFIG.max || 'https://max.ru/'; }
-  function baseHref(ch) { return ch === 'wa' ? waLink('') : ch === 'tg' ? tgLink() : mxLink(); }
-  $$('a[data-msg]').forEach(function (a) { a.href = baseHref(a.getAttribute('data-msg')); });
+  function renderCatalog(list) {
+    var ul = $('#catList'); if (!ul || !Array.isArray(list)) return;
+    ul.textContent = '';
+    list.forEach(function (it) {
+      if (!it || it.show === false || !it.title) return;
+      var li = el('li'), d = el('div'), sp = el('div', 'spec');
+      d.appendChild(el('h3', '', it.title));
+      if (it.desc) d.appendChild(el('p', '', it.desc));
+      [it.spec1, it.spec2].forEach(function (x) { if (x) sp.appendChild(el('span', '', x)); });
+      var b = el('button', 'btn btn-line btn-sm', 'Цена и наличие'); b.type = 'button';
+      b.setAttribute('data-ask', String(it.title).toLowerCase());
+      li.appendChild(d); li.appendChild(sp); li.appendChild(b); ul.appendChild(li);
+    });
+  }
+  function renderFind(f) {
+    var ul = $('#findList'), call = $('#findCall'); if (!ul || !call || !f) return;
+    $$('li', ul).forEach(function (li) { if (li !== call) li.remove(); });
+    var lines = [];
+    if (f.pavilion) lines.push([f.pavilion, true]);
+    (Array.isArray(f.points) ? f.points : []).forEach(function (x) { if (x) lines.push([x, false]); });
+    lines.forEach(function (l) {
+      var li = el('li'), sp = el(l[1] ? 'b' : 'span', '', l[0]);
+      if (l[1]) sp.style.color = 'var(--ink)';
+      li.appendChild(sp); ul.insertBefore(li, call);
+    });
+  }
+  function renderPhotos(list) {
+    var g = $('#gal'); if (!g || !Array.isArray(list)) return;
+    var hint = $('.gal-hint', g); g.textContent = '';
+    list.forEach(function (ph) {
+      var full = safeUrl(ph.full), thumb = safeUrl(ph.thumb) || full; if (!full) return;
+      var w = +ph.w || 4, h = +ph.h || 3;
+      var b = el('button', 'ph' + (w / h > 2.2 ? ' ph-wide' : h > w ? ' ph-tall' : '')); b.type = 'button';
+      b.setAttribute('data-full', full); b.setAttribute('data-cap', ph.cap || '');
+      var im = el('img'); im.src = thumb; im.loading = 'lazy'; im.decoding = 'async'; im.alt = ph.alt || ph.cap || 'Фото места';
+      if (ph.w && ph.h) { im.width = ph.w; im.height = ph.h; }
+      b.appendChild(im); g.appendChild(b);
+    });
+    if (hint) g.appendChild(hint);
+    g.hidden = !list.length;
+  }
+
+  function applyConfig() {
+    $$('[data-cfg]').forEach(function (n) {
+      var k = n.getAttribute('data-cfg'), v = k === 'hoursLabel' ? hoursLabel() : CONFIG[k];
+      if (typeof v === 'string' && v) n.textContent = v;
+    });
+    $$('[data-tel]').forEach(function (a) { a.href = 'tel:' + CONFIG.phone; });
+    $$('a[data-msg]').forEach(function (a) { a.href = baseHref(a.getAttribute('data-msg')); });
+    applyMaps();
+    var bn = CONFIG.banner || {};
+    $('#bannerText').textContent = bn.text || '';
+    $('#banner').hidden = !(bn.on && bn.text);
+    var h = CONFIG.hero || {};
+    if (h.title) $('#heroTitle').textContent = h.title;
+    if (h.lead) $('#heroLead').textContent = h.lead;
+    var sv = CONFIG.services || {};
+    $$('[data-price]').forEach(function (n) {
+      var k = n.getAttribute('data-price'), v = String(sv[k] || '').trim();
+      n.textContent = v ? (k === 'discount' ? 'Скидка ' + v : v) : '';
+      n.hidden = !v;
+    });
+    $('#discHero').textContent = sv.discount ? ' ' + String(sv.discount).trim() : '';
+    if (CONFIG.catalog) renderCatalog(CONFIG.catalog);
+    if (CONFIG.find) renderFind(CONFIG.find);
+    if (CONFIG.photos) renderPhotos(CONFIG.photos);
+  }
+  function mergeConfig(j) {
+    if (!j || typeof j !== 'object') return;
+    var c = j.contacts || {};
+    ['phoneDisplay', 'whatsapp', 'telegram', 'max', 'addressShort', 'addressRegion', 'addressFull', 'mapQuery', 'mapCoords', 'yandexOrg']
+      .forEach(function (k) { if (typeof c[k] === 'string') CONFIG[k] = c[k].trim(); });
+    var d = digitsRu(CONFIG.phoneDisplay);
+    if (d) CONFIG.phone = '+' + d;
+    CONFIG.whatsapp = digitsRu(CONFIG.whatsapp) || d || CONFIG.whatsapp;
+    if (!CONFIG.telegram) CONFIG.telegram = '+' + d;
+    if (CONFIG.max && !/^https:\/\//.test(CONFIG.max)) CONFIG.max = '';
+    if (CONFIG.yandexOrg && !/^https:\/\//.test(CONFIG.yandexOrg)) CONFIG.yandexOrg = '';
+    if (j.hours && typeof j.hours === 'object') {
+      CONFIG.hours = { from: j.hours.from || CONFIG.hours.from, to: j.hours.to || CONFIG.hours.to, days: Array.isArray(j.hours.days) ? j.hours.days : CONFIG.hours.days };
+      CONFIG.hoursLabel = typeof j.hours.label === 'string' ? j.hours.label.trim() : '';
+    }
+    if (typeof j.endpoint === 'string') CONFIG.endpoint = /^https:\/\//.test(j.endpoint.trim()) ? j.endpoint.trim() : '';
+    if (j.banner && typeof j.banner === 'object') CONFIG.banner = j.banner;
+    if (j.hero && typeof j.hero === 'object') CONFIG.hero = j.hero;
+    if (j.services && typeof j.services === 'object') CONFIG.services = j.services;
+    if (Array.isArray(j.catalog)) CONFIG.catalog = j.catalog;
+    if (j.find && typeof j.find === 'object') CONFIG.find = j.find;
+    if (Array.isArray(j.photos)) CONFIG.photos = j.photos;
+  }
+  applyConfig();
+  $('#year').textContent = String(new Date().getFullYear());
 
   /* ---------- сообщения внизу экрана ---------- */
   var toastTimer;
@@ -1049,15 +1177,21 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
 
   /* ---------- режим работы ---------- */
   function workState() {
-    var h, m;
+    var now = new Date(), h, m, wd;
     try {
-      var p = new Intl.DateTimeFormat('ru-RU', { timeZone: CONFIG.tz, hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).formatToParts(new Date());
-      h = +p.filter(function (x) { return x.type === 'hour'; })[0].value;
-      m = +p.filter(function (x) { return x.type === 'minute'; })[0].value;
-    } catch (e) { var d = new Date(); h = d.getHours(); m = d.getMinutes(); }
-    var t = h + m / 60;
-    if (t >= CONFIG.hours.from && t < CONFIG.hours.to) return { open: true, text: 'Сейчас работаем, до ' + CONFIG.hours.to + ':00' };
-    return { open: false, text: 'Сейчас закрыто, откроемся в ' + CONFIG.hours.from + ':00' };
+      var p = new Intl.DateTimeFormat('en-US', { timeZone: CONFIG.tz, hour: '2-digit', minute: '2-digit', weekday: 'short', hourCycle: 'h23' }).formatToParts(now);
+      var g = function (t) { return p.filter(function (x) { return x.type === t; })[0].value; };
+      h = +g('hour'); m = +g('minute'); wd = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].indexOf(g('weekday')) + 1;
+    } catch (e) { h = now.getHours(); m = now.getMinutes(); wd = now.getDay() || 7; }
+    var t = h * 60 + m, from = mins(CONFIG.hours.from), to = mins(CONFIG.hours.to), days = workDays();
+    var today = days.indexOf(wd) >= 0;
+    if (today && t >= from && t < to) return { open: true, text: 'Сейчас работаем, до ' + hm(CONFIG.hours.to) };
+    if (today && t < from) return { open: false, text: 'Сейчас закрыто, откроемся в ' + hm(CONFIG.hours.from) };
+    for (var i = 1; i <= 7; i++) {
+      var dd = (wd - 1 + i) % 7 + 1;
+      if (days.indexOf(dd) >= 0) return { open: false, text: 'Сейчас закрыто, откроемся ' + (i === 1 ? 'завтра' : 'в ' + DAY[dd].toLowerCase()) + ' в ' + hm(CONFIG.hours.from) };
+    }
+    return { open: false, text: 'Сейчас закрыто' };
   }
   function paintState() {
     var s = workState();
@@ -1188,8 +1322,10 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
   }
 
   /* ---------- просмотр фото «Как нас найти» ---------- */
-  var gal = $$('.gal [data-full]'), lbi = 0, lbLast = null;
+  var lbi = 0, lbLast = null;
+  function photos() { return $$('#gal [data-full]'); }
   function lbShow(i) {
+    var gal = photos();
     if (!gal.length) return;
     lbi = (i + gal.length) % gal.length;
     var b = gal[lbi], img = $('#lbImg');
@@ -1222,7 +1358,7 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
   document.addEventListener('click', function (e) {
     var t = e.target;
     if (!t.closest) return;
-    var ph = t.closest('[data-full]'); if (ph) { lbOpen(gal.indexOf(ph)); return; }
+    var ph = t.closest('[data-full]'); if (ph) { lbOpen(photos().indexOf(ph)); return; }
     var lbb = t.closest('[data-lb]');
     if (lbb) { var act = lbb.getAttribute('data-lb'); if (act === 'close') lbClose(); else lbShow(lbi + (act === 'next' ? 1 : -1)); return; }
     if (t === $('#lb') || t.classList.contains('lb-stage')) { lbClose(); return; }
@@ -1280,7 +1416,7 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
   }
   function contactReady() { return validContact(contact.contact) && contact.consent; }
   function paintWho() {
-    if (DIRECT) { $('#who').hidden = true; $('#whoSum').hidden = true; return; }
+    if (isDirect()) { $('#who').hidden = true; $('#whoSum').hidden = true; return; }
     var ready = contactReady() && !editingWho;
     $('#who').hidden = ready; $('#whoSum').hidden = !ready;
     if (ready) $('#whoSumText').textContent = 'Ответим ' + REPLY[contact.reply] + ': ' + (contact.name ? contact.name + ', ' : '') + contact.contact;
@@ -1332,7 +1468,8 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
   }
   function renderChat() {
     var body = $('#chatBody'); body.textContent = '';
-    var g = workState().open ? GREETING : GREETING + '\n\nСейчас нерабочее время. Сообщение прочитаем утром, после ' + CONFIG.hours.from + ':00.';
+    var ws = workState();
+    var g = ws.open ? GREETING : GREETING + '\n\n' + ws.text.replace('Сейчас закрыто, откроемся', 'Сейчас нерабочее время. Прочитаем сообщение, когда откроемся:') + '.';
     body.appendChild(bubble({ text: g }, false, false));
     var list = items();
     list.forEach(function (m) {
@@ -1370,7 +1507,7 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
     autosize(); renderChat(); markSeen();
     if (!mqMobile.matches) {
       var target = $('#chatText');
-      if (!DIRECT && (!contactReady() || editingWho)) target = $('#c-name').value ? $('#c-contact') : $('#c-name');
+      if (!isDirect() && (!contactReady() || editingWho)) target = $('#c-name').value ? $('#c-contact') : $('#c-name');
       target.focus();
     }
   }
@@ -1391,7 +1528,7 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
     $('#chatErr').hidden = true;
     var ta = $('#chatText'), text = ta.value.trim();
     if (!text) return chatFail('Напишите сообщение.', ta);
-    if (!DIRECT && (!contactReady() || editingWho)) {
+    if (!isDirect() && (!contactReady() || editingWho)) {
       var picked = $('#chatForm input[name="reply"]:checked');
       var c = { name: $('#c-name').value.trim(), contact: fmtPhone($('#c-contact').value), reply: picked ? picked.value : 'wa', consent: $('#c-consent').checked };
       if (!validContact(c.contact)) return chatFail('Укажите телефон или ник в Telegram, чтобы менеджер мог ответить.', $('#c-contact'));
@@ -1410,7 +1547,7 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
   function ackReceived() {
     var last = localThread.filter(function (x) { return x.ack; }).pop();
     if (last && Date.now() - last.at < 30 * 60000) return;
-    var w = workState().open ? ' в ближайшее время.' : ' после ' + CONFIG.hours.from + ':00.';
+    var w = workState().open ? ' в ближайшее время.' : ', когда откроемся.';
     localThread.push({ who: 'them', ack: true, at: Date.now(), text: 'Сообщение получили. Менеджер ответит ' + (REPLY[contact.reply] || '') + w });
   }
   async function deliver(m) {
@@ -1426,7 +1563,7 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
       }
     }
     pending = pending.filter(function (x) { return x !== m; });
-    if (DIRECT) {
+    if (isDirect()) {
       m.status = 'pick';
       localThread.push(m);
       localThread.push({ who: 'sys', at: m.at + 1, payload: m.text, text: 'Выберите, куда отправить сообщение менеджеру. Текст уже готов, в мессенджере останется нажать «Отправить».' });
@@ -1585,6 +1722,19 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
       catch (err) { ta.value = text; toast('Ответ не сохранился. Проверьте соединение и отправьте ещё раз'); }
     });
   });
+
+  /* ---------- настройки из админки ---------- */
+  (function loadRemoteConfig() {
+    if (!/^https?:$/.test(location.protocol) || !window.fetch) return;
+    fetch('config.json?v=' + Date.now(), { cache: 'no-store' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (j) {
+        if (!j) return;
+        mergeConfig(j); applyConfig(); paintState(); paintWho();
+        if (!$('#chat').hidden) renderChat();
+      })
+      .catch(function () {});
+  })();
 
   if (location.hash === '#chat') openChat();
 })();
