@@ -258,6 +258,11 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
 .contacts{background:var(--surface)}
 .c-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:36px 72px}
 @media (max-width:880px){.c-grid{grid-template-columns:minmax(0,1fr)}}
+.map{grid-column:1/-1;display:grid;gap:10px;min-width:0}
+.map-box{position:relative;height:clamp(300px,40vw,460px);border:1.5px solid var(--line-2);border-radius:var(--r);overflow:hidden;background:var(--paper)}
+.map-box iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.map-box .map-ph{position:absolute;inset:0;display:grid;place-content:center;gap:6px;text-align:center;color:var(--ink-2);font-size:14px;padding:16px}
+.map-cap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 16px;font-size:13.5px;color:var(--ink-2)}
 .addr{margin-top:28px;font:800 clamp(30px,4.4vw,48px)/1 var(--f-display);text-transform:uppercase}
 .addr-sub{margin-top:10px;color:var(--ink-2)}
 .dl{margin:0;align-self:end}
@@ -747,6 +752,7 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
         <p class="addr" data-cfg="addressShort">Усады, ул. Дорожная, 3</p>
         <p class="addr-sub" data-cfg="addressRegion">Лаишевский район, Республика Татарстан</p>
         <div class="acts">
+          <a class="btn btn-plus" data-map="route" href="https://yandex.ru/maps/" target="_blank" rel="noopener"><svg class="i"><use href="#i-send"/></svg>Построить маршрут</a>
           <a class="btn btn-line" data-map="yandex" href="https://yandex.ru/maps/" target="_blank" rel="noopener"><svg class="i"><use href="#i-pin"/></svg>Яндекс Карты</a>
           <a class="btn btn-line" data-map="2gis" href="https://2gis.ru/kazan" target="_blank" rel="noopener"><svg class="i"><use href="#i-pin"/></svg>2ГИС</a>
         </div>
@@ -761,6 +767,13 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
         </dd></div>
         <div><dt>На сайте</dt><dd><button class="btn btn-plus btn-sm" type="button" data-open-chat><svg class="i"><use href="#i-chat"/></svg>Открыть чат с менеджером</button></dd></div>
       </dl>
+      <div class="map" id="karta">
+        <div class="map-box">
+          <div class="map-ph" aria-hidden="true"><svg class="i" style="margin-inline:auto"><use href="#i-pin"/></svg><span>Загружаем карту…</span></div>
+          <iframe id="mapFrame" title="Аккумуляторы Усады на Яндекс Картах" src="https://yandex.ru/map-widget/v1/?mode=search&amp;text=%D0%A2%D0%B0%D1%82%D0%B0%D1%80%D1%81%D1%82%D0%B0%D0%BD%2C%20%D0%9B%D0%B0%D0%B8%D1%88%D0%B5%D0%B2%D1%81%D0%BA%D0%B8%D0%B9%20%D1%80%D0%B0%D0%B9%D0%BE%D0%BD%2C%20%D0%A3%D1%81%D0%B0%D0%B4%D1%8B%2C%20%D0%94%D0%BE%D1%80%D0%BE%D0%B6%D0%BD%D0%B0%D1%8F%20%D1%83%D0%BB%D0%B8%D1%86%D0%B0%2C%203&amp;z=16" loading="lazy" allowfullscreen></iframe>
+        </div>
+        <p class="map-cap"><span data-cfg="addressFull">Лаишевский район, Усады, ул. Дорожная, 3</span><a data-map="yandex" href="https://yandex.ru/maps/" target="_blank" rel="noopener">Открыть карту в новом окне</a></p>
+      </div>
     </div>
   </section>
 </main>
@@ -891,6 +904,8 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
     addressRegion: 'Лаишевский район, Республика Татарстан',
     addressFull: 'Лаишевский район, Усады, ул. Дорожная, 3',
     mapQuery: 'Татарстан, Лаишевский район, Усады, Дорожная улица, 3',
+    mapCoords: '',                // широта,долгота точки на карте, например '55.701234,49.212345': метка встанет точно
+    yandexOrg: '',                // ссылка на карточку магазина в Яндекс Картах, если она есть
     endpoint: ''                  // адрес обработчика заявок на вашем хостинге (POST, JSON)
   };
   /* =================================================================== */
@@ -921,10 +936,21 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
   /* ---------- настройки → страница ---------- */
   $$('[data-cfg]').forEach(function (n) { var v = CONFIG[n.getAttribute('data-cfg')]; if (typeof v === 'string' && v) n.textContent = v; });
   $$('[data-tel]').forEach(function (a) { a.href = 'tel:' + CONFIG.phone; });
-  $$('a[data-map]').forEach(function (a) {
+  (function maps() {
     var q = encodeURIComponent(CONFIG.mapQuery);
-    a.href = a.getAttribute('data-map') === '2gis' ? 'https://2gis.ru/kazan/search/' + q : 'https://yandex.ru/maps/?text=' + q;
-  });
+    var c = String(CONFIG.mapCoords || '').split(',').map(function (x) { return parseFloat(x); });
+    var has = c.length === 2 && isFinite(c[0]) && isFinite(c[1]);
+    var ll = has ? c[1] + ',' + c[0] : '';
+    var U = {
+      widget: has ? 'https://yandex.ru/map-widget/v1/?ll=' + ll + '&z=16&pt=' + ll + ',pm2rdl' : 'https://yandex.ru/map-widget/v1/?mode=search&text=' + q + '&z=16',
+      yandex: CONFIG.yandexOrg || (has ? 'https://yandex.ru/maps/?ll=' + ll + '&z=17&pt=' + ll + ',pm2rdl' : 'https://yandex.ru/maps/?text=' + q),
+      route: 'https://yandex.ru/maps/?rtext=~' + (has ? c[0] + ',' + c[1] : q) + '&rtt=auto',
+      '2gis': 'https://2gis.ru/kazan/search/' + q
+    };
+    $$('a[data-map]').forEach(function (a) { a.href = U[a.getAttribute('data-map')] || U.yandex; });
+    var mf = $('#mapFrame');
+    if (mf && mf.getAttribute('src') !== U.widget) mf.src = U.widget;
+  })();
   $('#year').textContent = String(new Date().getFullYear());
 
   function waLink(t) { return 'https://wa.me/' + CONFIG.whatsapp + (t ? '?text=' + encodeURIComponent(t) : ''); }
