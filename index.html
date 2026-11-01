@@ -357,6 +357,7 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
 .who-sum{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:13.5px;color:var(--ink-2)}
 .who-sum span{min-width:0;overflow-wrap:anywhere}
 .compose{display:flex;gap:8px;align-items:flex-end}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none}
 .compose textarea{flex:1;min-width:0;resize:none;min-height:46px;max-height:140px;overflow-y:auto}
 .send{width:46px;height:46px;padding:0;flex:none}
 .chat-alt{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:10px 16px 14px;border-top:1px solid var(--line);font-size:13px;color:var(--ink-2);flex:none}
@@ -884,6 +885,7 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
       <button class="btn btn-plus send" type="submit" aria-label="Отправить"><svg class="i"><use href="#i-send"/></svg></button>
     </div>
     <p class="err" id="chatErr" role="alert" hidden></p>
+    <input class="hp" type="text" id="c-hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
   </form>
   <div class="chat-alt"><span>Удобнее в мессенджере:</span>
     <a class="btn btn-line" data-msg="wa" data-src="draft" href="https://wa.me/79377745444" target="_blank" rel="noopener"><span class="mk mk-wa" aria-hidden="true">W</span>WhatsApp</a>
@@ -1404,6 +1406,13 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
   });
 
   function wait(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+  /* Подтверждение посетителю, не чаще раза в 30 минут */
+  function ackReceived() {
+    var last = localThread.filter(function (x) { return x.ack; }).pop();
+    if (last && Date.now() - last.at < 30 * 60000) return;
+    var w = workState().open ? ' в ближайшее время.' : ' после ' + CONFIG.hours.from + ':00.';
+    localThread.push({ who: 'them', ack: true, at: Date.now(), text: 'Сообщение получили. Менеджер ответит ' + (REPLY[contact.reply] || '') + w });
+  }
   async function deliver(m) {
     await cloudReady;
     if (cloud && cloud.canWrite !== false) {
@@ -1426,11 +1435,13 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
     localThread.push(m); saveThread(); renderChat();
     if (CONFIG.endpoint) {
       try {
+        /* text/plain: простой запрос без предварительной проверки CORS, его принимает Google Apps Script */
         var r = await fetch(CONFIG.endpoint, {
-          method: 'POST', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name: contact.name, contact: contact.contact, reply: contact.reply, text: m.text, page: location.href, time: new Date(m.at).toISOString() })
+          method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({ name: contact.name, contact: contact.contact, reply: contact.reply, text: m.text, page: location.href, time: new Date(m.at).toISOString(), hp: ($('#c-hp') || {}).value || '' })
         });
-        if (r.ok) { m.status = 'ok'; saveThread(); renderChat(); return; }
+        var res = null; try { res = await r.json(); } catch (e2) {}
+        if (r.ok && res && res.ok) { m.status = 'ok'; ackReceived(); saveThread(); renderChat(); return; }
       } catch (e) {}
     }
     m.status = 'fail';
