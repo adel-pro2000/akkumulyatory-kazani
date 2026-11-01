@@ -37,6 +37,9 @@
   --mx:#5A4ED8;
   --shade:rgba(20,26,31,.30);
   --scrim:rgba(12,16,19,.45);
+  --lb-bg:#0B0E11;
+  --lb-btn:rgba(11,14,17,.7);
+  --lb-fg:#F2F4F5;
   --f-display:"Fira Sans Extra Condensed","Arial Narrow","Roboto Condensed",sans-serif;
   --f-body:"Golos Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   --f-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
@@ -263,6 +266,34 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
 .map-box iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .map-box .map-ph{position:absolute;inset:0;display:grid;place-content:center;gap:6px;text-align:center;color:var(--ink-2);font-size:14px;padding:16px}
 .map-cap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 16px;font-size:13.5px;color:var(--ink-2)}
+
+/* как нас найти */
+.find{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:24px 48px;align-items:start;padding-top:12px}
+@media (max-width:880px){.find{grid-template-columns:minmax(0,1fr)}}
+.find h3{font:800 clamp(28px,3.4vw,38px)/.95 var(--f-display);text-transform:uppercase}
+.find-addr{margin-top:10px;font-weight:600}
+.find-list{margin:16px 0 0;padding:0;list-style:none;display:grid;gap:10px;color:var(--ink-2)}
+.find-list li{display:grid;grid-template-columns:18px minmax(0,1fr);gap:8px}
+.find-list li::before{content:"+";font:600 15px/1.5 var(--f-mono);color:var(--plus)}
+.find-list a{color:var(--ink);font-weight:600}
+.gal{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.ph{position:relative;display:block;padding:0;border:0;border-radius:var(--r);overflow:hidden;background:var(--line);cursor:zoom-in;aspect-ratio:4/3;max-width:100%}
+.ph-wide{grid-column:1/-1;aspect-ratio:1200/252}
+.ph img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .25s}
+.ph:hover img{transform:scale(1.03)}
+.ph-tall img{object-position:50% 62%}
+.gal-hint{grid-column:1/-1;margin:2px 0 0;font-size:13px;color:var(--ink-2)}
+
+/* просмотр фото */
+.lb{position:fixed;inset:0;z-index:85;background:var(--lb-bg);color:var(--lb-fg);display:grid;grid-template-rows:auto minmax(0,1fr) auto;padding-top:calc(8px + env(safe-area-inset-top,0px));padding-bottom:calc(14px + env(safe-area-inset-bottom,0px));padding-left:max(12px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px))}
+.lb-top{display:flex;justify-content:space-between;align-items:center;gap:12px;font:500 12.5px/1.3 var(--f-mono)}
+.lb-stage{position:relative;display:grid;place-items:center;min-height:0}
+.lb-stage img{max-width:100%;max-height:100%;object-fit:contain;border-radius:3px}
+.lb-cap{text-align:center;font-size:14.5px;max-width:60ch;margin:10px auto 0}
+.lb .icon-btn{color:var(--lb-fg)}
+.lb .icon-btn:hover{border-color:currentColor}
+.lb-nav{position:absolute;top:50%;transform:translateY(-50%);background:var(--lb-btn)}
+.lb-prev{left:0}.lb-next{right:0}
 .addr{margin-top:28px;font:800 clamp(30px,4.4vw,48px)/1 var(--f-display);text-transform:uppercase}
 .addr-sub{margin-top:10px;color:var(--ink-2)}
 .dl{margin:0;align-self:end}
@@ -697,7 +728,7 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
       <ol class="steps">
         <li><span class="n">1</span><h3>Напишите или позвоните</h3><p>Марка, модель и год машины или фото наклейки со старого аккумулятора. Фото удобнее отправить в WhatsApp, Telegram или MAX.</p></li>
         <li><span class="n">2</span><h3>Получите варианты с ценами</h3><p>Менеджер проверит наличие и пришлёт подходящие модели с ценами. Если нужного нет, предложит замену или привезёт под заказ.</p></li>
-        <li><span class="n">3</span><h3>Заберите или закажите выезд</h3><p>Заберите в Усадах на Дорожной, 3, или мы приедем и установим аккумулятор на месте. За старый аккумулятор сделаем скидку.</p></li>
+        <li><span class="n">3</span><h3>Заберите или закажите выезд</h3><p>Заберите в Усадах на Дорожной, 3 (<a href="#proezd">как нас найти</a>), или мы приедем и установим аккумулятор на месте. За старый аккумулятор сделаем скидку.</p></li>
       </ol>
     </div>
   </section>
@@ -773,6 +804,27 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
           <iframe id="mapFrame" title="Аккумуляторы Усады на Яндекс Картах" src="https://yandex.ru/map-widget/v1/?mode=search&amp;text=%D0%A2%D0%B0%D1%82%D0%B0%D1%80%D1%81%D1%82%D0%B0%D0%BD%2C%20%D0%9B%D0%B0%D0%B8%D1%88%D0%B5%D0%B2%D1%81%D0%BA%D0%B8%D0%B9%20%D1%80%D0%B0%D0%B9%D0%BE%D0%BD%2C%20%D0%A3%D1%81%D0%B0%D0%B4%D1%8B%2C%20%D0%94%D0%BE%D1%80%D0%BE%D0%B6%D0%BD%D0%B0%D1%8F%20%D1%83%D0%BB%D0%B8%D1%86%D0%B0%2C%203&amp;z=16" loading="lazy" allowfullscreen></iframe>
         </div>
         <p class="map-cap"><span data-cfg="addressFull">Лаишевский район, Усады, ул. Дорожная, 3</span><a data-map="yandex" href="https://yandex.ru/maps/" target="_blank" rel="noopener">Открыть карту в новом окне</a></p>
+      </div>
+      <div class="find" id="proezd">
+        <div>
+          <h3>Как нас найти</h3>
+          <p class="find-addr" data-cfg="addressFull">Лаишевский район, Усады, ул. Дорожная, 3</p>
+          <ul class="find-list">
+            <li><span>Ищите четырёхэтажный дом из светлого кирпича, его видно издалека.</span></li>
+            <li><span>Перед домом стоит ряд тёмно-синих павильонов со стеклянными витринами. На павильонах вывески «Аренда инструмента» и «Kazan тандыр».</span></li>
+            <li><span>В конце ряда ворота со шлагбаумом.</span></li>
+            <li><span>Машину можно оставить на площадке перед павильонами.</span></li>
+            <li><span>Не можете найти? Позвоните по номеру <a class="mono" data-tel data-cfg="phoneDisplay" href="tel:+79377745444">+7 937 774-54-44</a>, подскажем дорогу.</span></li>
+          </ul>
+          <div class="acts" style="margin-top:20px"><a class="btn btn-plus" data-map="route" href="https://yandex.ru/maps/" target="_blank" rel="noopener"><svg class="i"><use href="#i-send"/></svg>Построить маршрут</a></div>
+        </div>
+        <div class="gal" aria-label="Фото места">
+          <button class="ph ph-wide" type="button" data-full="img/proezd-panorama.webp" data-cap="Вид с площадки: слева ряд павильонов, в конце ряда ворота со шлагбаумом"><img src="img/proezd-panorama-s.webp" width="1200" height="252" loading="lazy" decoding="async" alt="Панорама: ряд тёмно-синих павильонов перед кирпичным домом, ворота и дорога"></button>
+          <button class="ph" type="button" data-full="img/proezd-fasad.webp" data-cap="Павильоны перед кирпичным домом"><img src="img/proezd-fasad-s.webp" width="760" height="570" loading="lazy" decoding="async" alt="Тёмно-синие павильоны со стеклянными витринами перед четырёхэтажным кирпичным домом"></button>
+          <button class="ph ph-tall" type="button" data-full="img/proezd-ryad.webp" data-cap="Ряд павильонов, вывеска «Аренда инструмента»"><img src="img/proezd-ryad-s.webp" width="570" height="760" loading="lazy" decoding="async" alt="Ряд павильонов с вывеской «Аренда инструмента» и площадка перед ними"></button>
+          <button class="ph" type="button" data-full="img/proezd-vorota.webp" data-cap="Конец ряда павильонов, ворота со шлагбаумом"><img src="img/proezd-vorota-s.webp" width="760" height="570" loading="lazy" decoding="async" alt="Крайний павильон и открытые ворота со шлагбаумом"></button>
+          <p class="gal-hint">Нажмите на фото, чтобы увеличить.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -883,6 +935,16 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
     </form>
   </div>
 </aside>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Фото места" hidden>
+  <div class="lb-top"><span id="lbNum"></span><button class="icon-btn" type="button" data-lb="close" aria-label="Закрыть фото"><svg class="i"><use href="#i-x"/></svg></button></div>
+  <div class="lb-stage">
+    <img id="lbImg" alt="">
+    <button class="icon-btn lb-nav lb-prev" type="button" data-lb="prev" aria-label="Предыдущее фото"><svg class="i"><use href="#i-back"/></svg></button>
+    <button class="icon-btn lb-nav lb-next" type="button" data-lb="next" aria-label="Следующее фото"><svg class="i" style="transform:scaleX(-1)"><use href="#i-back"/></svg></button>
+  </div>
+  <p class="lb-cap" id="lbCap"></p>
+</div>
 
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 
@@ -1123,10 +1185,45 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
     e.preventDefault(); openMaxSheet(text);
   }
 
+  /* ---------- просмотр фото «Как нас найти» ---------- */
+  var gal = $$('.gal [data-full]'), lbi = 0, lbLast = null;
+  function lbShow(i) {
+    if (!gal.length) return;
+    lbi = (i + gal.length) % gal.length;
+    var b = gal[lbi], img = $('#lbImg');
+    img.src = b.getAttribute('data-full');
+    img.alt = b.querySelector('img').alt;
+    $('#lbCap').textContent = b.getAttribute('data-cap') || '';
+    $('#lbNum').textContent = (lbi + 1) + ' из ' + gal.length;
+  }
+  function lbOpen(i) {
+    lbLast = document.activeElement; lbShow(i);
+    $('#lb').hidden = false; document.documentElement.classList.add('lock');
+    $('#lb [data-lb="close"]').focus();
+  }
+  function lbClose() {
+    $('#lb').hidden = true;
+    if ($('#chat').hidden && $('#inbox').hidden) document.documentElement.classList.remove('lock');
+    if (lbLast && lbLast.focus) lbLast.focus();
+  }
+  (function swipe() {
+    var x0 = null, st = $('#lb');
+    st.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+    st.addEventListener('touchend', function (e) {
+      if (x0 === null) return;
+      var dx = e.changedTouches[0].clientX - x0; x0 = null;
+      if (Math.abs(dx) > 45) lbShow(lbi + (dx < 0 ? 1 : -1));
+    }, { passive: true });
+  })();
+
   /* ---------- общий обработчик кликов ---------- */
   document.addEventListener('click', function (e) {
     var t = e.target;
     if (!t.closest) return;
+    var ph = t.closest('[data-full]'); if (ph) { lbOpen(gal.indexOf(ph)); return; }
+    var lbb = t.closest('[data-lb]');
+    if (lbb) { var act = lbb.getAttribute('data-lb'); if (act === 'close') lbClose(); else lbShow(lbi + (act === 'next' ? 1 : -1)); return; }
+    if (t === $('#lb') || t.classList.contains('lb-stage')) { lbClose(); return; }
     var m = t.closest('a[data-msg]'); if (m) { onMessenger(e, m); return; }
     if (t.closest('[data-open-chat]')) { openChat(); return; }
     var dc = t.closest('[data-chat]'); if (dc) { openChat(dc.getAttribute('data-chat')); return; }
@@ -1141,6 +1238,12 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
     if (t.closest('[data-close-sheet]') || t === $('#maxSheet')) closeSheet();
   });
   document.addEventListener('keydown', function (e) {
+    if (!$('#lb').hidden) {
+      if (e.key === 'ArrowRight') lbShow(lbi + 1);
+      else if (e.key === 'ArrowLeft') lbShow(lbi - 1);
+      else if (e.key === 'Escape') lbClose();
+      return;
+    }
     if (e.key !== 'Escape') return;
     if (!$('#maxSheet').hidden) return closeSheet();
     if (!$('#inbox').hidden) return closeInbox();
