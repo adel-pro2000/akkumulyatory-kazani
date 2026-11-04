@@ -1,18 +1,25 @@
 /**
  * Уведомления в Telegram о сообщениях из чата на сайте «Аккумуляторы Усады».
  *
- * Работает как веб-приложение Google Apps Script. Ключ бота хранится в свойствах
- * скрипта (Настройки проекта → Свойства скрипта), а не в коде и не на сайте.
+ * Работает как веб-приложение Google Apps Script. Ключ бота и номера получателей
+ * хранятся в свойствах скрипта (Настройки проекта → Свойства скрипта),
+ * а не в коде и не на сайте. Посетители сайта этих номеров не видят.
  *
- *   TG_TOKEN    ключ бота от @BotFather (добавляете вы)
- *   TG_CHAT_ID  куда слать уведомления (заполнит функция setup)
+ *   TG_TOKEN       ключ бота от @BotFather
+ *   NOTIFY_PHONES  номера, которым можно получать заявки, через запятую:
+ *                  79001112233, 79004445566
+ *
+ * Как подключить получателя: человек с номером из NOTIFY_PHONES открывает бота,
+ * нажимает «Начать» и «Поделиться номером». Бот сверяет номер и подключает его
+ * в течение минуты. Чужие номера бот не подключает.
  *
  * Пошаговая инструкция: notify/README.md
  */
 
 var REPLY = { call: 'позвонить', wa: 'в WhatsApp', tg: 'в Telegram', mx: 'в MAX' };
 
-/* Сайт присылает сюда сообщение из чата */
+/* ================= сообщения с сайта ================= */
+
 function doPost(e) {
   try {
     var d;
@@ -41,34 +48,38 @@ function doGet() {
   return out_({ ok: true, service: 'akb-usady-notify' });
 }
 
-/* Запустите один раз после того, как нажали «Начать» в своём боте */
+/* ================= настройка ================= */
+
+/* Запустите один раз после того, как добавили TG_TOKEN и NOTIFY_PHONES */
 function setup() {
-  var p = PropertiesService.getScriptProperties();
-  var token = p.getProperty('TG_TOKEN');
+  var token = prop_('TG_TOKEN');
   if (!token) throw new Error('Добавьте свойство TG_TOKEN: Настройки проекта → Свойства скрипта');
+  if (!allowedPhones_().length) throw new Error('Добавьте свойство NOTIFY_PHONES: номера получателей через запятую, например 79001112233, 79004445566');
 
   var me = tg_(token, 'getMe', {});
   if (!me.ok) throw new Error('Telegram не принял ключ бота: ' + (me.description || 'проверьте TG_TOKEN'));
+  tg_(token, 'deleteWebhook', {});
 
-  var up = tg_(token, 'getUpdates', {});
-  var chats = (up.result || [])
-    .map(function (u) { return u.message || u.my_chat_member; })
-    .filter(function (m) { return m && m.chat && m.chat.type === 'private'; })
-    .map(function (m) { return m.chat; });
-  if (!chats.length) {
-    throw new Error('Откройте бота @' + me.result.username + ' в Telegram, нажмите «Начать» и запустите setup ещё раз');
-  }
+  migrateOldChat_();
+  startPolling_();
+  pollBot();
 
-  var chat = chats[chats.length - 1];
-  p.setProperty('TG_CHAT_ID', String(chat.id));
-  tg_(token, 'sendMessage', {
-    chat_id: chat.id,
-    text: 'Уведомления с сайта «Аккумуляторы Усады» подключены. Сюда будут приходить сообщения из чата на сайте.'
-  });
-  console.log('Готово. Уведомления будут приходить в Telegram: ' + (chat.first_name || '') + ' ' + (chat.username ? '@' + chat.username : ''));
+  console.log('Бот: @' + me.result.username + ' (https://t.me/' + me.result.username + ')');
+  console.log('Номера, которым можно получать заявки: ' + allowedPhones_().map(mask_).join(', '));
+  status();
+  console.log('Каждый получатель: откройте бота, нажмите «Начать», затем «Поделиться номером». Бот ответит в течение минуты.');
 }
 
-/* Пробное уведомление, можно запускать сколько угодно */
+/* Кто сейчас получает заявки */
+function status() {
+  var chats = chats_();
+  var phones = allowedPhones_();
+  var waiting = phones.filter(function (p) { return !chats.some(function (c) { return c.phone === p; }); });
+  console.log('Получают заявки: ' + (chats.length ? chats.map(function (c) { return (c.name || 'без имени') + ' ' + mask_(c.phone); }).join(', ') : 'пока никто'));
+  if (waiting.length) console.log('Ещё не подключились: ' + waiting.map(mask_).join(', '));
+}
+
+/* Пробное уведомление всем получателям */
 function testMessage() {
   var r = doPost({ postData: { contents: JSON.stringify({
     name: 'Проверка', contact: '+7 900 000-00-00', reply: 'wa',
@@ -78,13 +89,69 @@ function testMessage() {
   console.log(r.getContent());
 }
 
-/* ---------- внутренние функции ---------- */
+/* ================= бот: подключение получателей ================= */
+
+/* Запускается автоматически раз в минуту, пока не подключатся все номера */
+function pollBot() {
+  var lock = LockService.getScriptLock();
+  if (!lock.tryLock(5000)) return;
+  try {
+    var token = prop_('TG_TOKEN'); if (!token) return;
+    var offset = Number(prop_('TG_OFFSET') || 0);
+    var up = tg_(token, 'getUpdates', { offset: offset, timeout: 0, allowed_updates: ['message'] });
+    if (!up.ok) { console.error('getUpdates: ' + up.description); return; }
+
+    (up.result || []).forEach(function (u) {
+      offset = Math.max(offset, u.update_id + 1);
+      var m = u.message;
+      if (!m || !m.chat || m.chat.type !== 'private' || !m.from) return;
+      handle_(token, m);
+    });
+    setProp_('TG_OFFSET', String(offset));
+
+    if (allConnected_()) stopPolling_();
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+function handle_(token, m) {
+  var chats = chats_();
+  var mine = chats.filter(function (c) { return String(c.id) === String(m.chat.id); })[0];
+
+  if (m.contact) {
+    if (String(m.contact.user_id) !== String(m.from.id)) {
+      return say_(token, m.chat.id, 'Нужен ваш собственный номер. Нажмите кнопку «Поделиться номером» ниже.', shareKb_());
+    }
+    var phone = digits_(m.contact.phone_number);
+    if (allowedPhones_().indexOf(phone) < 0) {
+      return say_(token, m.chat.id, 'Этот номер не подключён к заявкам с сайта. Если это ошибка, попросите владельца сайта добавить номер.', { remove_keyboard: true });
+    }
+    chats = chats.filter(function (c) { return String(c.id) !== String(m.chat.id) && c.phone !== phone; });
+    chats.push({ id: m.chat.id, phone: phone, name: m.from.first_name || '' });
+    saveChats_(chats);
+    return say_(token, m.chat.id, 'Готово. Заявки с сайта «Аккумуляторы Усады» будут приходить сюда.', { remove_keyboard: true });
+  }
+
+  var t = String(m.text || '').trim();
+  if (/^\/stop/.test(t)) {
+    if (mine) saveChats_(chats.filter(function (c) { return c !== mine; }));
+    return say_(token, m.chat.id, 'Вы больше не получаете заявки с сайта. Чтобы снова подключиться, отправьте /start.', { remove_keyboard: true });
+  }
+  if (mine) return say_(token, m.chat.id, 'Вы получаете заявки с сайта. Чтобы отключиться, отправьте /stop.');
+  return say_(token, m.chat.id, 'Здравствуйте! Это бот заявок с сайта «Аккумуляторы Усады». Чтобы получать заявки, нажмите кнопку «Поделиться номером» ниже.', shareKb_());
+}
+
+function shareKb_() {
+  return { keyboard: [[{ text: 'Поделиться номером', request_contact: true }]], resize_keyboard: true, one_time_keyboard: true };
+}
+
+/* ================= отправка заявки ================= */
 
 function notify_(d, text, contact, name) {
-  var p = PropertiesService.getScriptProperties();
-  var token = p.getProperty('TG_TOKEN');
-  var chat = p.getProperty('TG_CHAT_ID');
-  if (!token || !chat) throw new Error('Не заданы TG_TOKEN или TG_CHAT_ID: запустите setup');
+  var token = prop_('TG_TOKEN');
+  var chats = chats_();
+  if (!token || !chats.length) throw new Error('Нет получателей: запустите setup и подключите номера через бота');
 
   var lines = ['<b>Новое сообщение с сайта</b>', ''];
   if (name) lines.push('Имя: ' + esc_(name));
@@ -95,23 +162,64 @@ function notify_(d, text, contact, name) {
   if (!isNaN(t)) lines.push('', '<i>' + Utilities.formatDate(t, 'Europe/Moscow', 'dd.MM.yyyy HH:mm') + '</i>');
 
   var buttons = [];
-  var digits = String(contact).replace(/\D/g, '');
-  if (digits.length === 11 && digits.charAt(0) === '8') digits = '7' + digits.slice(1);
-  if (digits.length === 10) digits = '7' + digits;
-  if (digits.length === 11 && !/[A-Za-z]/.test(contact)) {
-    buttons.push({ text: 'Ответить в WhatsApp', url: 'https://wa.me/' + digits });
-    buttons.push({ text: 'Telegram', url: 'https://t.me/+' + digits });
+  var dg = digits_(contact);
+  if (dg && !/[A-Za-z]/.test(contact)) {
+    buttons.push({ text: 'Ответить в WhatsApp', url: 'https://wa.me/' + dg });
+    buttons.push({ text: 'Telegram', url: 'https://t.me/+' + dg });
   } else if (/^@?[A-Za-z][A-Za-z0-9_]{3,31}$/.test(contact)) {
     buttons.push({ text: 'Ответить в Telegram', url: 'https://t.me/' + contact.replace(/^@/, '') });
   }
 
-  var body = { chat_id: chat, text: lines.join('\n'), parse_mode: 'HTML', disable_web_page_preview: true };
+  var body = { text: lines.join('\n'), parse_mode: 'HTML', disable_web_page_preview: true };
   if (buttons.length) body.reply_markup = { inline_keyboard: [buttons] };
-  var res = tg_(token, 'sendMessage', body);
-  if (!res.ok) console.error('Telegram: ' + res.description);
-  return res.ok === true;
+
+  var delivered = 0, keep = [];
+  chats.forEach(function (c) {
+    body.chat_id = c.id;
+    var res = tg_(token, 'sendMessage', body);
+    if (res.ok) { delivered++; keep.push(c); return; }
+    console.error('Telegram (' + mask_(c.phone) + '): ' + res.description);
+    if (res.error_code !== 403) keep.push(c); // 403: получатель заблокировал бота, убираем его
+  });
+  if (keep.length !== chats.length) saveChats_(keep);
+  return delivered > 0;
 }
 
+/* ================= служебное ================= */
+
+function chats_() {
+  try { var a = JSON.parse(prop_('TG_CHATS') || '[]'); return Array.isArray(a) ? a : []; }
+  catch (e) { return []; }
+}
+function saveChats_(a) { setProp_('TG_CHATS', JSON.stringify(a)); }
+function allowedPhones_() {
+  return String(prop_('NOTIFY_PHONES') || '').split(/[,;\n]+/).map(digits_).filter(Boolean);
+}
+function allConnected_() {
+  var chats = chats_();
+  return allowedPhones_().every(function (p) { return chats.some(function (c) { return c.phone === p; }); });
+}
+/* Совместимость с первой версией скрипта, где был один получатель в TG_CHAT_ID */
+function migrateOldChat_() {
+  var old = prop_('TG_CHAT_ID');
+  if (!old) return;
+  var chats = chats_();
+  if (!chats.some(function (c) { return String(c.id) === String(old); })) chats.push({ id: old, phone: '', name: 'из прошлой настройки' });
+  saveChats_(chats);
+  PropertiesService.getScriptProperties().deleteProperty('TG_CHAT_ID');
+}
+function startPolling_() {
+  stopPolling_();
+  ScriptApp.newTrigger('pollBot').timeBased().everyMinutes(1).create();
+}
+function stopPolling_() {
+  ScriptApp.getProjectTriggers().forEach(function (t) { if (t.getHandlerFunction() === 'pollBot') ScriptApp.deleteTrigger(t); });
+}
+function say_(token, chatId, text, markup) {
+  var b = { chat_id: chatId, text: text };
+  if (markup) b.reply_markup = markup;
+  return tg_(token, 'sendMessage', b);
+}
 function tg_(token, method, body) {
   var r = UrlFetchApp.fetch('https://api.telegram.org/bot' + token + '/' + method, {
     method: 'post', contentType: 'application/json', payload: JSON.stringify(body), muteHttpExceptions: true
@@ -119,7 +227,15 @@ function tg_(token, method, body) {
   try { return JSON.parse(r.getContentText()); }
   catch (e) { return { ok: false, description: r.getContentText().slice(0, 200) }; }
 }
-
+function prop_(k) { return PropertiesService.getScriptProperties().getProperty(k); }
+function setProp_(k, v) { PropertiesService.getScriptProperties().setProperty(k, v); }
+function digits_(v) {
+  var d = String(v == null ? '' : v).replace(/\D/g, '');
+  if (d.length === 11 && d.charAt(0) === '8') d = '7' + d.slice(1);
+  if (d.length === 10) d = '7' + d;
+  return d.length === 11 ? d : '';
+}
+function mask_(p) { return p ? '+' + p.slice(0, 1) + ' ' + p.slice(1, 4) + ' ***-**-' + p.slice(-2) : 'номер не указан'; }
 function limit_(key, max, seconds) {
   var cache = CacheService.getScriptCache();
   var k = 'rl:' + Utilities.base64EncodeWebSafe(Utilities.computeDigest(Utilities.DigestAlgorithm.MD5, key));
@@ -128,15 +244,12 @@ function limit_(key, max, seconds) {
   cache.put(k, String(n + 1), seconds);
   return true;
 }
-
 function clean_(v, max) {
   return String(v == null ? '' : v).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g, '').trim().slice(0, max);
 }
-
 function esc_(s) {
   return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
-
 function out_(o) {
   return ContentService.createTextOutput(JSON.stringify(o)).setMimeType(ContentService.MimeType.JSON);
 }
