@@ -110,7 +110,7 @@ svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stro
 .logo-text{font:800 23px/1 var(--f-display);letter-spacing:.015em;text-transform:uppercase;white-space:nowrap}
 .logo-text b{font-weight:800;color:var(--plus)}
 .nav{display:flex;gap:18px}
-.nav a{text-decoration:none;font-weight:500;font-size:15px;color:var(--ink-2);padding-block:6px;border-bottom:2px solid transparent}
+.nav a{white-space:nowrap;text-decoration:none;font-weight:500;font-size:15px;color:var(--ink-2);padding-block:6px;border-bottom:2px solid transparent}
 .nav a:hover{color:var(--ink);border-bottom-color:var(--plus)}
 .head-tools{display:flex;align-items:center;gap:10px}
 .head-phone{font-size:15px;text-decoration:none;white-space:nowrap}
@@ -121,7 +121,7 @@ svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stro
 .menu-foot{display:grid;gap:12px;padding-block:16px 20px}
 .menu-phone{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px}
 .menu-phone a{font-size:20px;text-decoration:none}
-@media (max-width:1240px){.nav{display:none}.burger{display:inline-grid}}
+@media (max-width:1360px){.nav{display:none}.burger{display:inline-grid}}
 @media (max-width:700px){.head-phone,.head-write{display:none}.inbox-label{display:none}}
 @media (max-width:400px){.logo-text{font-size:19px}.logo{gap:9px}}
 
@@ -1462,7 +1462,7 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
     var b = el('div', 'msg ' + (mine ? 'msg-out' : 'msg-in'));
     if (m.status === 'fail' && mine && showStatus) b.classList.add('is-fail');
     b.appendChild(el('div', 'msg-text', m.text));
-    var meta = (m.at ? when(m.at) : '') + (mine && showStatus ? ' · ' + STATUS[m.status || 'ok'] : '');
+    var meta = (m.mgr && !mine ? 'Менеджер · ' : '') + (m.at ? when(m.at) : '') + (mine && showStatus ? ' · ' + STATUS[m.status || 'ok'] : '');
     if (meta) b.appendChild(el('div', 'msg-meta', meta));
     return b;
   }
@@ -1504,7 +1504,7 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
       document.documentElement.classList.add('lock');
     }
     if (typeof text === 'string' && text) { $('#chatText').value = text; saveDraft(); }
-    autosize(); renderChat(); markSeen();
+    autosize(); renderChat(); markSeen(); pollReplies();
     if (!mqMobile.matches) {
       var target = $('#chatText');
       if (!isDirect() && (!contactReady() || editingWho)) target = $('#c-name').value ? $('#c-contact') : $('#c-name');
@@ -1543,12 +1543,52 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
   });
 
   function wait(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+
+  /* ---------- ответы менеджера из Telegram ---------- */
+  var SID = store.get('akb-sid', '');
+  if (!/^[a-z0-9]{12,32}$/.test(SID)) {
+    SID = (Math.random().toString(36).slice(2) + Date.now().toString(36)).replace(/[^a-z0-9]/g, '').slice(0, 24);
+    store.set('akb-sid', SID);
+  }
+  var replyTimer = null;
+  function lastAt(test) { var t = 0; localThread.forEach(function (m) { if (test(m) && m.at > t) t = m.at; }); return t; }
+  function pollReplies() {
+    clearTimeout(replyTimer);
+    if (!CONFIG.endpoint || !window.fetch) return;
+    var mine = lastAt(function (m) { return m.who === 'me' && m.status === 'ok'; });
+    if (!mine || Date.now() - mine > 7 * 864e5) return;
+    var url = CONFIG.endpoint + (CONFIG.endpoint.indexOf('?') < 0 ? '?' : '&') + 'sid=' + SID + '&after=' + lastAt(function (m) { return m.mgr; });
+    fetch(url, { cache: 'no-store' })
+      .then(function (r) { return r.json(); })
+      .then(function (j) {
+        if (!j || !j.ok || !Array.isArray(j.replies)) return;
+        var added = 0;
+        j.replies.forEach(function (r) {
+          if (!r || !r.id || !r.text) return;
+          var id = String(r.id);
+          if (localThread.some(function (m) { return m.rid === id; })) return;
+          localThread.push({ who: 'them', mgr: true, rid: id, text: String(r.text).slice(0, 2000), at: +r.at || Date.now() });
+          added++;
+        });
+        if (!added) return;
+        saveThread();
+        if (!$('#chat').hidden) renderChat();
+        else { setUnread(true); toast('Менеджер ответил в чате'); }
+      })
+      .catch(function () {})
+      .then(function () {
+        /* пока чат открыт — каждые 10 секунд, иначе раз в 45 секунд; через 2 часа после сообщения посетителя опрос останавливается */
+        if (Date.now() - lastAt(function (m) { return m.who === 'me'; }) > 2 * 3600e3) return;
+        replyTimer = setTimeout(pollReplies, $('#chat').hidden ? 45000 : 10000);
+      });
+  }
+
   /* Подтверждение посетителю, не чаще раза в 30 минут */
   function ackReceived() {
     var last = localThread.filter(function (x) { return x.ack; }).pop();
     if (last && Date.now() - last.at < 30 * 60000) return;
     var w = workState().open ? ' в ближайшее время.' : ', когда откроемся.';
-    localThread.push({ who: 'them', ack: true, at: Date.now(), text: 'Сообщение получили. Менеджер ответит ' + (REPLY[contact.reply] || '') + w });
+    localThread.push({ who: 'them', ack: true, at: Date.now(), text: 'Сообщение получили. Менеджер ответит здесь, в чате, или ' + (REPLY[contact.reply] || '') + w });
   }
   async function deliver(m) {
     await cloudReady;
@@ -1575,10 +1615,10 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
         /* text/plain: простой запрос без предварительной проверки CORS, его принимает Google Apps Script */
         var r = await fetch(CONFIG.endpoint, {
           method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify({ name: contact.name, contact: contact.contact, reply: contact.reply, text: m.text, page: location.href, time: new Date(m.at).toISOString(), hp: ($('#c-hp') || {}).value || '' })
+          body: JSON.stringify({ name: contact.name, contact: contact.contact, reply: contact.reply, text: m.text, page: location.href, time: new Date(m.at).toISOString(), sid: SID, hp: ($('#c-hp') || {}).value || '' })
         });
         var res = null; try { res = await r.json(); } catch (e2) {}
-        if (r.ok && res && res.ok) { m.status = 'ok'; ackReceived(); saveThread(); renderChat(); return; }
+        if (r.ok && res && res.ok) { m.status = 'ok'; ackReceived(); saveThread(); renderChat(); pollReplies(); return; }
       } catch (e) {}
     }
     m.status = 'fail';
@@ -1730,7 +1770,7 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (j) {
         if (!j) return;
-        mergeConfig(j); applyConfig(); paintState(); paintWho();
+        mergeConfig(j); applyConfig(); paintState(); paintWho(); pollReplies();
         if (!$('#chat').hidden) renderChat();
       })
       .catch(function () {});

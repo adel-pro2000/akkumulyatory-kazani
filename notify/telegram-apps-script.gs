@@ -13,6 +13,9 @@
  * нажимает «Начать» и «Поделиться номером». Бот сверяет номер и подключает его
  * в течение минуты. Чужие номера бот не подключает.
  *
+ * Ответ в чат на сайте: получатель смахивает заявку в Telegram (ответить на сообщение)
+ * и пишет текст. Посетитель видит ответ в окне чата на сайте через несколько секунд.
+ *
  * Пошаговая инструкция: notify/README.md
  */
 
@@ -36,16 +39,23 @@ function doPost(e) {
     // Защита от спама: не больше 120 сообщений в час всего и 15 за 10 минут с одного контакта
     if (!limit_('all', 120, 3600) || !limit_('c:' + contact, 15, 600)) return out_({ ok: false, error: 'rate' });
 
-    return out_({ ok: notify_(d, text, contact, name) });
+    return out_({ ok: notify_(d, text, contact, name, sidOk_(d.sid)) });
   } catch (err) {
     console.error(err);
     return out_({ ok: false, error: 'server' });
   }
 }
 
-/* Проверка, что веб-приложение работает: откройте его адрес в браузере */
-function doGet() {
-  return out_({ ok: true, service: 'akb-usady-notify' });
+/* Чат на сайте спрашивает ответы менеджера; без параметров — проверка, что всё работает */
+function doGet(e) {
+  var p = (e && e.parameter) || {};
+  var sid = sidOk_(p.sid);
+  if (!sid) return out_({ ok: true, service: 'akb-usady-notify' });
+  if (!limit_('g:' + sid, 30, 60)) return out_({ ok: false, error: 'rate' });
+  var c = CacheService.getScriptCache();
+  if (!c.get('polled')) { c.put('polled', '1', 8); try { poll_(1500); } catch (x) { console.error(x); } }
+  var after = Number(p.after) || 0;
+  return out_({ ok: true, replies: replies_(sid).filter(function (r) { return r.at > after; }) });
 }
 
 /* ================= настройка ================= */
@@ -91,10 +101,12 @@ function testMessage() {
 
 /* ================= бот: подключение получателей ================= */
 
-/* Запускается автоматически раз в минуту, пока не подключатся все номера */
-function pollBot() {
+/* Запускается автоматически раз в минуту: подключает получателей и забирает ответы для сайта */
+function pollBot() { poll_(5000); }
+
+function poll_(waitMs) {
   var lock = LockService.getScriptLock();
-  if (!lock.tryLock(5000)) return;
+  if (!lock.tryLock(waitMs)) return;
   try {
     var token = prop_('TG_TOKEN'); if (!token) return;
     var offset = Number(prop_('TG_OFFSET') || 0);
@@ -108,8 +120,7 @@ function pollBot() {
       handle_(token, m);
     });
     setProp_('TG_OFFSET', String(offset));
-
-    if (allConnected_()) stopPolling_();
+    cleanup_();
   } finally {
     lock.releaseLock();
   }
@@ -118,6 +129,20 @@ function pollBot() {
 function handle_(token, m) {
   var chats = chats_();
   var mine = chats.filter(function (c) { return String(c.id) === String(m.chat.id); })[0];
+
+  // Ответ получателя на заявку уходит в чат на сайте
+  if (mine && m.reply_to_message) {
+    var tag = /#site_([a-z0-9]{12,32})/.exec(String(m.reply_to_message.text || m.reply_to_message.caption || ''));
+    if (tag) {
+      if (!m.text) return say_(token, m.chat.id, 'В чат на сайте можно ответить только текстом.');
+      addReply_(tag[1], { id: m.chat.id + '_' + m.message_id, at: m.date * 1000, text: String(m.text).slice(0, 2000) });
+      say_(token, m.chat.id, 'Ответ отправлен в чат на сайте. Посетитель увидит его, пока сайт открыт, или когда снова зайдёт на сайт.');
+      chats.forEach(function (c) {
+        if (String(c.id) !== String(m.chat.id)) say_(token, c.id, (mine.name || 'Коллега') + ' ответил посетителю #site_' + tag[1] + ':\n' + m.text);
+      });
+      return;
+    }
+  }
 
   if (m.contact) {
     if (String(m.contact.user_id) !== String(m.from.id)) {
@@ -138,7 +163,7 @@ function handle_(token, m) {
     if (mine) saveChats_(chats.filter(function (c) { return c !== mine; }));
     return say_(token, m.chat.id, 'Вы больше не получаете заявки с сайта. Чтобы снова подключиться, отправьте /start.', { remove_keyboard: true });
   }
-  if (mine) return say_(token, m.chat.id, 'Вы получаете заявки с сайта. Чтобы отключиться, отправьте /stop.');
+  if (mine) return say_(token, m.chat.id, 'Вы получаете заявки с сайта. Чтобы ответить посетителю в чат на сайте, смахните сообщение с заявкой влево и напишите ответ. Отключиться от заявок: /stop.');
   return say_(token, m.chat.id, 'Здравствуйте! Это бот заявок с сайта «Аккумуляторы Усады». Чтобы получать заявки, нажмите кнопку «Поделиться номером» ниже.', shareKb_());
 }
 
@@ -148,7 +173,7 @@ function shareKb_() {
 
 /* ================= отправка заявки ================= */
 
-function notify_(d, text, contact, name) {
+function notify_(d, text, contact, name, sid) {
   var token = prop_('TG_TOKEN');
   var chats = chats_();
   if (!token || !chats.length) throw new Error('Нет получателей: запустите setup и подключите номера через бота');
@@ -160,6 +185,7 @@ function notify_(d, text, contact, name) {
   lines.push('', esc_(text));
   var t = d.time ? new Date(d.time) : new Date();
   if (!isNaN(t)) lines.push('', '<i>' + Utilities.formatDate(t, 'Europe/Moscow', 'dd.MM.yyyy HH:mm') + '</i>');
+  if (sid) lines.push('', '<i>Ответить в чат на сайте: смахните это сообщение влево и напишите ответ.</i>', '#site_' + sid);
 
   var buttons = [];
   var dg = digits_(contact);
@@ -185,6 +211,34 @@ function notify_(d, text, contact, name) {
   return delivered > 0;
 }
 
+/* ================= ответы для сайта ================= */
+
+function sidOk_(v) { v = String(v || '').toLowerCase(); return /^[a-z0-9]{12,32}$/.test(v) ? v : ''; }
+function replies_(sid) {
+  try { var a = JSON.parse(prop_('r_' + sid) || '[]'); return Array.isArray(a) ? a : []; }
+  catch (e) { return []; }
+}
+function addReply_(sid, r) {
+  var a = replies_(sid);
+  if (a.some(function (x) { return x.id === r.id; })) return;
+  a.push(r); a = a.slice(-30);
+  var s = JSON.stringify(a);
+  while (s.length > 8500 && a.length > 1) { a.shift(); s = JSON.stringify(a); }
+  setProp_('r_' + sid, s);
+}
+/* Раз в 6 часов удаляет переписки старше 14 дней */
+function cleanup_() {
+  var c = CacheService.getScriptCache();
+  if (c.get('cleaned')) return;
+  c.put('cleaned', '1', 21600);
+  var props = PropertiesService.getScriptProperties(), all = props.getProperties(), old = Date.now() - 14 * 864e5;
+  Object.keys(all).forEach(function (k) {
+    if (k.indexOf('r_') !== 0) return;
+    try { var a = JSON.parse(all[k]); if (!a.length || a[a.length - 1].at < old) props.deleteProperty(k); }
+    catch (e) { props.deleteProperty(k); }
+  });
+}
+
 /* ================= служебное ================= */
 
 function chats_() {
@@ -194,10 +248,6 @@ function chats_() {
 function saveChats_(a) { setProp_('TG_CHATS', JSON.stringify(a)); }
 function allowedPhones_() {
   return String(prop_('NOTIFY_PHONES') || '').split(/[,;\n]+/).map(digits_).filter(Boolean);
-}
-function allConnected_() {
-  var chats = chats_();
-  return allowedPhones_().every(function (p) { return chats.some(function (c) { return c.phone === p; }); });
 }
 /* Совместимость с первой версией скрипта, где был один получатель в TG_CHAT_ID */
 function migrateOldChat_() {
