@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-01T12:30:00.000Z",
+  "updatedAt": "2026-11-04T13:18:56.000Z",
   "contacts": {
     "phoneDisplay": "+7 937 774-54-44",
     "whatsapp": "79377745444",
@@ -134,5 +134,5 @@
       "alt": "Крайний павильон и открытые ворота со шлагбаумом"
     }
   ],
-  "endpoint": ""
+  "endpoint": "https://script.google.com/macros/s/AKfycbzULZmLJ0RM3DBYmdi48K701i4DmEdXpy8-ChpxsYu7bqphLe0wOixEv_Z0zWp3Gxgjwg/exec"
 }
