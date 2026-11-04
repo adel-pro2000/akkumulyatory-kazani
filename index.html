@@ -1557,7 +1557,7 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
     if (!CONFIG.endpoint || !window.fetch) return;
     var mine = lastAt(function (m) { return m.who === 'me' && m.status === 'ok'; });
     if (!mine || Date.now() - mine > 7 * 864e5) return;
-    var url = CONFIG.endpoint + (CONFIG.endpoint.indexOf('?') < 0 ? '?' : '&') + 'sid=' + SID + '&after=' + lastAt(function (m) { return m.mgr; });
+    var url = CONFIG.endpoint + (CONFIG.endpoint.indexOf('?') < 0 ? '?' : '&') + 'cid=' + SID + '&after=' + lastAt(function (m) { return m.mgr; });
     fetch(url, { cache: 'no-store' })
       .then(function (r) { return r.json(); })
       .then(function (j) {
@@ -1615,7 +1615,7 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
         /* text/plain: простой запрос без предварительной проверки CORS, его принимает Google Apps Script */
         var r = await fetch(CONFIG.endpoint, {
           method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify({ name: contact.name, contact: contact.contact, reply: contact.reply, text: m.text, page: location.href, time: new Date(m.at).toISOString(), sid: SID, hp: ($('#c-hp') || {}).value || '' })
+          body: JSON.stringify({ name: contact.name, contact: contact.contact, reply: contact.reply, text: m.text, page: location.href, time: new Date(m.at).toISOString(), cid: SID, hp: ($('#c-hp') || {}).value || '' })
         });
         var res = null; try { res = await r.json(); } catch (e2) {}
         if (r.ok && res && res.ok) { m.status = 'ok'; ackReceived(); saveThread(); renderChat(); pollReplies(); return; }

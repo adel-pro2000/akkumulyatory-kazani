@@ -39,17 +39,18 @@ function doPost(e) {
     // Защита от спама: не больше 120 сообщений в час всего и 15 за 10 минут с одного контакта
     if (!limit_('all', 120, 3600) || !limit_('c:' + contact, 15, 600)) return out_({ ok: false, error: 'rate' });
 
-    return out_({ ok: notify_(d, text, contact, name, sidOk_(d.sid)) });
+    return out_({ ok: notify_(d, text, contact, name, sidOk_(d.cid || d.sid)) });
   } catch (err) {
     console.error(err);
     return out_({ ok: false, error: 'server' });
   }
 }
 
-/* Чат на сайте спрашивает ответы менеджера; без параметров — проверка, что всё работает */
+/* Чат на сайте спрашивает ответы менеджера; без параметров — проверка, что всё работает.
+   Параметр называется cid: имена sid и c Google резервирует для себя и не передаёт в скрипт */
 function doGet(e) {
   var p = (e && e.parameter) || {};
-  var sid = sidOk_(p.sid);
+  var sid = sidOk_(p.cid);
   if (!sid) return out_({ ok: true, service: 'akb-usady-notify' });
   if (!limit_('g:' + sid, 30, 60)) return out_({ ok: false, error: 'rate' });
   var c = CacheService.getScriptCache();
