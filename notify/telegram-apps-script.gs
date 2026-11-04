@@ -286,12 +286,14 @@ function digits_(v) {
   return d.length === 11 ? d : '';
 }
 function mask_(p) { return p ? '+' + p.slice(0, 1) + ' ' + p.slice(1, 4) + ' ***-**-' + p.slice(-2) : 'номер не указан'; }
+/* Счётчик в окне фиксированной длины: в каждом новом окне начинается с нуля */
 function limit_(key, max, seconds) {
   var cache = CacheService.getScriptCache();
-  var k = 'rl:' + Utilities.base64EncodeWebSafe(Utilities.computeDigest(Utilities.DigestAlgorithm.MD5, key));
+  var win = Math.floor(Date.now() / 1000 / seconds);
+  var k = 'rl2:' + Utilities.base64EncodeWebSafe(Utilities.computeDigest(Utilities.DigestAlgorithm.MD5, key)) + ':' + win;
   var n = Number(cache.get(k) || 0);
   if (n >= max) return false;
-  cache.put(k, String(n + 1), seconds);
+  cache.put(k, String(n + 1), seconds + 5);
   return true;
 }
 function clean_(v, max) {
